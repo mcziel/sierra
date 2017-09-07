@@ -1,0 +1,421 @@
+title = "Listings"
+url = "/listado"
+layout = "Layout"
+is_hidden = 0
+==
+<?php
+function onGetCars()
+{
+    echo "LLEGO";
+}
+?>
+==
+<div class="b-infoBar" style="background: #ddd">
+	<div class="container">
+		<div class="row">
+            <div class="col-lg-3 col-xs-12">
+                <div class="b-infoBar__compare">
+                    <a href="compare.html" class="b-infoBar__compare-item"><span class="fa fa-search"></span>VEHICLES ENCONTRADOS: 2</a>
+                </div>
+            </div>
+			<div class="col-lg-9 col-xs-12">
+				<div class="b-infoBar__select">
+					<form method="post" action="/">
+						<div class="b-infoBar__select-one">
+							<span class="b-infoBar__select-one-title">VISTA</span>
+							<a id="VistaLista" href="#" class="m-list"><span class="fa fa-list"></span></a>
+							<a id="vistaTabla" href="#" class="m-table m-active"><span class="fa fa-table"></span></a>
+						</div>
+						<div class="b-infoBar__select-one">
+							<span class="b-infoBar__select-one-title">MOSTRAR EN UNA PAGINA</span>
+							<select name="select1" class="m-select">
+								<option value="" selected="">10 vehiculos</option>
+							</select>
+							<span class="fa fa-caret-down"></span>
+						</div>
+						<div class="b-infoBar__select-one" >
+							<span class="b-infoBar__select-one-title">ORDENAR POR</span>
+							<select name="select2" class="m-select" style="width: 200px;">
+                                <option value="" selected="">Mas recientes</option>
+                                <option value="" selected="">Precio de mayor a menor</option>
+                                <option value="" selected="">Precio de menor a mayor</option>
+							</select>
+							<span class="fa fa-caret-down"></span>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div><!--b-infoBar-->
+
+<div class="b-items">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3 col-sm-4 col-xs-12">
+				<aside class="b-items__aside">
+					<h2 class="s-title">FILTRA TU BUSQUEDA</h2>
+					<div class="b-items__aside-main">
+						<form>
+							<div class="b-items__aside-main-body">
+								<div class="b-items__aside-main-body-item">
+									<label>MARCA</label>
+									<div>
+										<select name="select1" class="m-select">
+											<option value="" selected="">Todas las marcas</option>
+										</select>
+										<span class="fa fa-caret-down"></span>
+									</div>
+								</div>
+								<div class="b-items__aside-main-body-item">
+									<label>MODELO</label>
+									<div>
+										<select name="select1" class="m-select">
+											<option value="" selected="">Todos los modelos</option>
+										</select>
+										<span class="fa fa-caret-down"></span>
+									</div>
+								</div>
+                                <div class="b-items__aside-main-body-item">
+                                    <label>MONEDA</label>
+                                    <div>
+                                        <select name="select1" class="m-select">
+                                            <option value="" selected="">Pesos</option>
+                                            <option value="" selected="">Dolares</option>
+                                        </select>
+                                        <span class="fa fa-caret-down"></span>
+                                    </div>
+                                </div>
+								<div class="b-items__aside-main-body-item">
+									<label>PRECIO</label>
+									<div class="slider"></div>
+									<input type="hidden" name="min" value="100" class="j-min" />
+									<input type="hidden" name="max" value="1000" class="j-max" />
+								</div>
+								<div class="b-items__aside-main-body-item">
+									<label>TIPO</label>
+									<div>
+										<select name="select1" class="m-select">
+											<option value="" selected="">Todos los tipos</option>
+										</select>
+										<span class="fa fa-caret-down"></span>
+									</div>
+								</div>
+								<div class="b-items__aside-main-body-item">
+									<label>ESTADO</label>
+									<div>
+										<select name="select1" class="m-select">
+											<option value="" selected="">Todos los estados</option>
+										</select>
+										<span class="fa fa-caret-down"></span>
+									</div>
+								</div>
+								<div class="b-items__aside-main-body-item">
+									<label>COMBUSTIBLE</label>
+									<div>
+										<select name="select1" class="m-select">
+											<option value="" selected="">Todos los combustibles</option>
+										</select>
+										<span class="fa fa-caret-down"></span>
+									</div>
+								</div>
+							</div>
+							<footer class="b-items__aside-main-footer">
+								<button type="submit" class="btn m-btn">BUSCAR VEHICULO<span class="fa fa-angle-right"></span></button><br />
+								<a href="">RESETEAR LOS FILTROS</a>
+							</footer>
+						</form>
+					</div>
+				</aside>
+			</div>
+			<div id="tabla" class="col-lg-9 col-sm-8 col-xs-12">
+                 <div class="row">
+                    <div class="col-xs-12 col-md-3">
+                        <div class="b-featured__item ">
+                            <a href="detail.html">
+                                <img  class="miniatura" src="{{"assets/images/car1.jpeg"|theme}}" alt="mers" />
+                            </a>
+                            <div class="b-featured__item-price">
+                                RD $695,000
+                            </div>
+                            <div class="clearfix"></div>
+                            <h5><a href="detail.html">Suzuki Grand Vitara 2015</a></h5>
+                            <div class="b-featured__item-count"><span class="fa fa-tachometer"></span>35,000 KM</div>
+                            <div class="b-featured__item-links">
+                                <a href="#">Used</a>
+                                <a href="#">2014</a>
+                                <a href="#">Manual</a>
+                                <a href="#">Orange</a>
+                                <a href="#">Petrol</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <div class="b-featured__item">
+                            <a href="detail.html">
+                                <img  class="miniatura" src="{{"assets/images/car2.jpg"|theme}}" alt="audi" />
+                            </a>
+                            <div class="b-featured__item-price">
+                                RD $460,900
+                            </div>
+                            <div class="clearfix"></div>
+                            <h5><a href="detail.html">Nissan Frontier NP300 2018</a></h5>
+                            <div class="b-featured__item-count"><span class="fa fa-tachometer"></span>0.00 KM</div>
+                            <div class="b-featured__item-links">
+                                <a href="#">Used</a>
+                                <a href="#">2015</a>
+                                <a href="#">Manual</a>
+                                <a href="#">Orange</a>
+                                <a href="#">Petrol</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <div class="b-featured__item ">
+                            <a href="detail.html">
+                                <img class="miniatura" src="{{"assets/images/car1.jpeg"|theme}}" alt="aston" />
+                            </a>
+                            <div class="b-featured__item-price">
+                                RD $380,000
+                            </div>
+                            <div class="clearfix"></div>
+                            <h5><a href="detail.html">Hyundai Grandeur 2008</a></h5>
+                            <div class="b-featured__item-count"><span class="fa fa-tachometer"></span>35,000 KM</div>
+                            <div class="b-featured__item-links">
+                                <a href="#">Used</a>
+                                <a href="#">2014</a>
+                                <a href="#">Manual</a>
+                                <a href="#">Orange</a>
+                                <a href="#">Petrol</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <div class="b-featured__item">
+                            <a href="detail.html">
+                                <img  class="miniatura" src="{{"assets/images/car4.jpg"|theme}}" alt="jaguar" />
+                            </a>
+                            <div class="b-featured__item-price">
+                                RD $515,000
+                            </div>
+                            <div class="clearfix"></div>
+                            <h5><a href="detail.html">Honda Accord 2009</a></h5>
+                            <div class="b-featured__item-count"><span class="fa fa-tachometer"></span>0.00</div>
+                            <div class="b-featured__item-links">
+                                <a href="#">Used</a>
+                                <a href="#">2015</a>
+                                <a href="#">Manual</a>
+                                <a href="#">Orange</a>
+                                <a href="#">Petrol</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-md-3">
+                        <div class="b-featured__item ">
+                            <a href="detail.html">
+                                <img  class="miniatura" src="{{"assets/images/car1.jpeg"|theme}}" alt="mers" />
+                            </a>
+                            <div class="b-featured__item-price">
+                                RD $695,000
+                            </div>
+                            <div class="clearfix"></div>
+                            <h5><a href="detail.html">Suzuki Grand Vitara 2015</a></h5>
+                            <div class="b-featured__item-count"><span class="fa fa-tachometer"></span>35,000 KM</div>
+                            <div class="b-featured__item-links">
+                                <a href="#">Used</a>
+                                <a href="#">2014</a>
+                                <a href="#">Manual</a>
+                                <a href="#">Orange</a>
+                                <a href="#">Petrol</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <div class="b-featured__item">
+                            <a href="detail.html">
+                                <img  class="miniatura" src="{{"assets/images/car2.jpg"|theme}}" alt="audi" />
+                            </a>
+                            <div class="b-featured__item-price">
+                                RD $460,900
+                            </div>
+                            <div class="clearfix"></div>
+                            <h5><a href="detail.html">Nissan Frontier NP300 2018</a></h5>
+                            <div class="b-featured__item-count"><span class="fa fa-tachometer"></span>0.00 KM</div>
+                            <div class="b-featured__item-links">
+                                <a href="#">Used</a>
+                                <a href="#">2015</a>
+                                <a href="#">Manual</a>
+                                <a href="#">Orange</a>
+                                <a href="#">Petrol</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <div class="b-featured__item ">
+                            <a href="detail.html">
+                                <img class="miniatura" src="{{"assets/images/car1.jpeg"|theme}}" alt="aston" />
+                            </a>
+                            <div class="b-featured__item-price">
+                                RD $380,000
+                            </div>
+                            <div class="clearfix"></div>
+                            <h5><a href="detail.html">Hyundai Grandeur 2008</a></h5>
+                            <div class="b-featured__item-count"><span class="fa fa-tachometer"></span>35,000 KM</div>
+                            <div class="b-featured__item-links">
+                                <a href="#">Used</a>
+                                <a href="#">2014</a>
+                                <a href="#">Manual</a>
+                                <a href="#">Orange</a>
+                                <a href="#">Petrol</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <div class="b-featured__item">
+                            <a href="detail.html">
+                                <img  class="lista-miniatura" src="{{"assets/images/car4.jpg"|theme}}" alt="jaguar" />
+                            </a>
+                            <div class="b-featured__item-price">
+                                RD $515,000
+                            </div>
+                            <div class="clearfix"></div>
+                            <h5><a href="detail.html">Honda Accord 2009</a></h5>
+                            <div class="b-featured__item-count"><span class="fa fa-tachometer"></span>0.00</div>
+                            <div class="b-featured__item-links">
+                                <a href="#">Used</a>
+                                <a href="#">2015</a>
+                                <a href="#">Manual</a>
+                                <a href="#">Orange</a>
+                                <a href="#">Petrol</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+		    </div>
+
+            <div id="lista">
+                                    <div class="b-items__cars-one">
+                    <div class="b-items__cars-one-img">
+                         <img  class="lista-miniatura" src="{{"assets/images/car4.jpg"|theme}}" alt="jaguar" />
+                    </div>
+                    <div class="b-items__cars-one-info">
+                            <h4>Nissan Maxima SV Premium</h4>
+                        <div class="row s-noRightMargin">
+                            <div class="col-md-9 col-xs-12">
+                                <p>In a pickup market gone fancy, the Silverado sticks to its basic-truck recipe. The steering is accurate, and the Silverado</p>
+                                <div class="row m-smallPadding m-width">
+                                    <div class="col-xs-6">
+                                        <div class="row m-smallPadding">
+                                            <div class="col-xs-6">
+                                                <span class="b-items__cars-one-info-title">Tipoe:</span>
+                                                <span class="b-items__cars-one-info-title">Millaje:</span>
+                                                <span class="b-items__cars-one-info-title">Transmicion:</span>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <span class="b-items__cars-one-info-value">Coupe</span>
+                                                <span class="b-items__cars-one-info-value">0,000 KM</span>
+                                                <span class="b-items__cars-one-info-value">6-Speed Manual</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="row m-smallPadding">
+                                            <div class="col-xs-4">
+                                                <span class="b-items__cars-one-info-title">Motor:</span>
+                                                <span class="b-items__cars-one-info-title">Color:</span>
+                                                <span class="b-items__cars-one-info-title">Spec:</span>
+                                            </div>
+                                            <div class="col-xs-8">
+                                                <span class="b-items__cars-one-info-value">DOHC inline-6</span>
+                                                <span class="b-items__cars-one-info-value">Black</span>
+                                                <span class="b-items__cars-one-info-value">4-Passenger, 2-Door</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-xs-12">
+                                <div class="b-items__cars-one-info-price">
+                                    <div class="pull-right">
+                                        <h3>Precio:</h3>
+                                        <h4>$603,325</h4>
+                                    </div>
+                                    <a href="detail.html" class="btn m-btn">VER DETALLE<span class="fa fa-angle-right"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="b-items__cars-one">
+                    <div class="b-items__cars-one-img">
+                         <img  class="lista-miniatura" src="{{"assets/images/car4.jpg"|theme}}" alt="jaguar" />
+                    </div>
+                    <div class="b-items__cars-one-info">
+                            <h4>Nissan Maxima SV Premium</h4>
+                        <div class="row s-noRightMargin">
+                            <div class="col-md-9 col-xs-12">
+                                <p>In a pickup market gone fancy, the Silverado sticks to its basic-truck recipe. The steering is accurate, and the Silverado</p>
+                                <div class="row m-smallPadding m-width">
+                                    <div class="col-xs-6">
+                                        <div class="row m-smallPadding">
+                                            <div class="col-xs-6">
+                                                <span class="b-items__cars-one-info-title">Tipoe:</span>
+                                                <span class="b-items__cars-one-info-title">Millaje:</span>
+                                                <span class="b-items__cars-one-info-title">Transmicion:</span>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <span class="b-items__cars-one-info-value">Coupe</span>
+                                                <span class="b-items__cars-one-info-value">0,000 KM</span>
+                                                <span class="b-items__cars-one-info-value">6-Speed Manual</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="row m-smallPadding">
+                                            <div class="col-xs-4">
+                                                <span class="b-items__cars-one-info-title">Motor:</span>
+                                                <span class="b-items__cars-one-info-title">Color:</span>
+                                                <span class="b-items__cars-one-info-title">Spec:</span>
+                                            </div>
+                                            <div class="col-xs-8">
+                                                <span class="b-items__cars-one-info-value">DOHC inline-6</span>
+                                                <span class="b-items__cars-one-info-value">Black</span>
+                                                <span class="b-items__cars-one-info-value">4-Passenger, 2-Door</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-xs-12">
+                                <div class="b-items__cars-one-info-price">
+                                    <div class="pull-right">
+                                        <h3>Precio:</h3>
+                                        <h4>$603,325</h4>
+                                    </div>
+                                    <a href="detail.html" class="btn m-btn">VER DETALLE<span class="fa fa-angle-right"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+				<div class="b-items__pagination">
+					<div class="b-items__pagination-main">
+						<a data-toggle="modal" data-target="#myModal" href="#" class="m-left"><span class="fa fa-angle-left"></span></a>
+						<span class="m-active"><a href="#">1</a></span>
+						<span><a href="#">2</a></span>
+						<span><a href="#">3</a></span>
+						<span><a href="#">4</a></span>
+						<a href="#" class="m-right"><span class="fa fa-angle-right"></span></a>    
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div><!--b-items-->
+<div id="lista" class="col-lg-9 col-sm-8 col-xs-12">
+</div>

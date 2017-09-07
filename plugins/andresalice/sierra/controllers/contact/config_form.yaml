@@ -1,0 +1,10 @@
+name: Contact
+form: $/andresalice/sierra/models/contact/fields.yaml
+modelClass: Andresalice\Sierra\Models\Contact
+defaultRedirect: andresalice/sierra/contact
+create:
+    redirect: 'andresalice/sierra/contact/update/:id'
+    redirectClose: andresalice/sierra/contact
+update:
+    redirect: andresalice/sierra/contact
+    redirectClose: andresalice/sierra/contact

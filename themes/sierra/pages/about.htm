@@ -1,0 +1,68 @@
+title = "About"
+url = "/nosotros"
+layout = "Layout"
+is_hidden = 0
+==
+<?php
+use Andresalice\Sierra\Models\Dealer;
+
+function onStart()
+{
+    $this['dealers'] = Dealer::get();
+}
+?>
+==
+<section class="b-more">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6 col-xs-12">
+				<div class="b-more__why">
+
+					<p>Líder en la comercialización de vehículos de motor nuevos y usados en todas las marcas y modelos en la provincia de San Cristóbal..</p>
+					<h2 class="s-title">NUESTRAS EMPRESAS</h2>
+					<ul class="s-list">
+					    {% for dealer in dealers %}
+						<li>
+							<div class="col-md-12">
+								<div class="col-md-3">
+									<img style="border-radius: 50%" src="{{dealer.featured_image.getPath}}">
+								</div>
+								<div class="col-md-9">
+									<h4>{{dealer.name}}</h4>
+									<p>{{dealer.description}}<br>
+									<a href="{{dealer.facebook}}"><span class="fa fa-facebook-square"></span></a>
+									<a href="{{dealer.twitter}}"><span class="fa fa-twitter-square"></span></a>
+									<a href="{{dealer.instagram}}"><span class="fa fa-instagram"></span></a>
+									</p>
+								</div>
+							</div>
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+			<div class="col-sm-6 col-xs-12">
+				<div class="b-more__info">
+					<div class="b-more__info-block">
+						<div class="b-more__info-block-title">MISION<a class="j-more" href="#"><span class="fa fa-angle-left"></span></a></div>
+						<div class="b-more__info-block-inside j-inside">
+							<p>Dedicarnos a la comercialización de vehículos nuevos y usados brindando las mejores ofertas del mercado,para lograr la complacencia y satisfacción de nuestros clientes.</p>
+						</div>
+					</div>
+					<div class="b-more__info-block">
+						<div class="b-more__info-block-title">VISION<a href="#" class="j-more"><span class="fa fa-angle-left"></span></a></div>
+						<div class="b-more__info-block-inside j-inside">
+							<p>Destacarnos como una empresa eminente del país en la comercialización de automóviles, ofreciendo unpersonal calificado en el servicio, que nos garanticen la preferencia y el agrado de nuestros clientes.</p>
+						</div>
+					</div>
+					<div class="b-more__info-block">
+						<div class="b-more__info-block-title">VALORES<a href="#" class="j-more"><span class="fa fa-angle-left"></span></a></div>
+						<div class="b-more__info-block-inside j-inside">
+							<p>Responsabilidad, Dedicación, Respeto e Integridad.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section><!--b-more-->

@@ -1,0 +1,10 @@
+name: Modelc
+form: $/andresalice/sierra/models/modelc/fields.yaml
+modelClass: Andresalice\Sierra\Models\Modelc
+defaultRedirect: andresalice/sierra/modelc
+create:
+    redirect: 'andresalice/sierra/modelc/update/:id'
+    redirectClose: andresalice/sierra/modelc
+update:
+    redirect: andresalice/sierra/modelc
+    redirectClose: andresalice/sierra/modelc

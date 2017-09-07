@@ -1,0 +1,31 @@
+columns:
+    created_at:
+        label: FECHA
+        type: text
+        searchable: true
+        sortable: true
+    name:
+        label: NOMBRE
+        type: text
+        searchable: true
+        sortable: true
+    email:
+        label: EMAIL
+        type: text
+        searchable: true
+        sortable: true
+    phone:
+        label: TELEFONO
+        type: text
+        searchable: true
+        sortable: true
+    message:
+        label: MENSAJE
+        type: text
+        searchable: true
+        sortable: true
+    status:
+        label: ESTADO
+        type: text
+        searchable: true
+        sortable: true

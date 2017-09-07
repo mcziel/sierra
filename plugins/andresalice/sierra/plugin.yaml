@@ -1,0 +1,28 @@
+plugin:
+    name: 'andresalice.sierra::lang.plugin.name'
+    description: 'andresalice.sierra::lang.plugin.description'
+    author: AndresAlice
+    icon: oc-icon-adjust
+    homepage: ''
+permissions:
+    all:
+        tab: all
+        label: all
+navigation:
+    content:
+        label: Contenido
+        url: andresalice/sierra/contact
+        icon: icon-life-ring
+        sideMenu:
+            contacts:
+                label: Contactos
+                url: andresalice/sierra/contact
+                icon: icon-paper-plane
+            dealers:
+                label: Dealers
+                url: andresalice/sierra/dealer
+                icon: icon-flag
+            cars:
+                label: Carros
+                url: andresalice/sierra/car
+                icon: icon-car

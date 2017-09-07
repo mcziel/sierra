@@ -1,0 +1,10 @@
+name: Dealer
+form: $/andresalice/sierra/models/dealer/fields.yaml
+modelClass: Andresalice\Sierra\Models\Dealer
+defaultRedirect: andresalice/sierra/dealer
+create:
+    redirect: 'andresalice/sierra/dealer/update/:id'
+    redirectClose: andresalice/sierra/dealer
+update:
+    redirect: andresalice/sierra/dealer
+    redirectClose: andresalice/sierra/dealer

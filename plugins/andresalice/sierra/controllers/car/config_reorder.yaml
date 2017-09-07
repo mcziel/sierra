@@ -1,0 +1,4 @@
+title: Car
+modelClass: Andresalice\Sierra\Models\Car
+toolbar:
+    buttons: reorder_toolbar

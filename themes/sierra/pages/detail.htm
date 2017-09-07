@@ -1,0 +1,313 @@
+title = "Detail"
+url = "/detalle/:id"
+layout = "Layout"
+is_hidden = 0
+==
+<?php
+use Andresalice\Sierra\Models\Car;
+
+function onStart()
+{
+    $this['car'] = Car::find($this->param("id"));
+}
+?>
+==
+<div class="b-infoBar">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="b-infoBar__btns">
+					<a href="compare.html" class="btn m-btn m-infoBtn">COMPARAR VEHICULO<span class="fa fa-angle-right"></span></a>
+					<a href="#" class="btn m-btn m-infoBtn">COMPARTIR<span class="fa fa-facebook"></span></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div><!--b-infoBar-->
+
+<section class="b-detail s-shadow">
+	<div class="container">
+		<header class="b-detail__head s-lineDownLeft">
+			<div class="row">
+				<div class="col-sm-8 col-xs-12">
+					<div class="b-detail__head-title">
+						<h1>{{car.model.maker.name}} {{car.model.name}} {{car.year}}</h1>
+					</div>
+				</div>
+				<div class="col-sm-4 col-xs-12">
+					<div class="b-detail__head-price">
+						<div class="b-detail__head-price-num">RD${{ car.price|number_format() }}</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<div class="b-detail__main">
+			<div class="row">
+				<div class="col-md-8 col-xs-12">
+					<div class="b-detail__main-info">
+						<div class="b-detail__main-info-images">
+							<div class="row m-smallPadding">
+								<div class="col-xs-10">
+									<ul class="b-detail__main-info-images-big bxslider enable-bx-slider" data-pager-custom="#bx-pager" data-mode="horizontal" data-pager-slide="true" data-mode-pager="vertical" data-pager-qty="5">
+									    {% for image in car.images %}
+    										<li class="s-relative">                                        
+    											<img class="img-responsive center-block" src="{{image.getPath}}"  alt="nissan" />
+    										</li>
+    									{% endfor %}
+									</ul>
+								</div>
+								<div class="col-xs-2 pagerSlider pagerVertical">
+									<div class="b-detail__main-info-images-small" id="bx-pager">
+									    {% for image in car.images %}
+    										<a href="#" data-slide-index="{{loop.index - 1}}" class="b-detail__main-info-images-small-one">
+    											<img class="img-responsive" src="{{image.getPath}}"  alt="nissan" />
+    										</a>
+										{% endfor %}
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="b-detail__main-info-text">
+							<div id="info1" style="background: #f5f5f5; padding: 5px 15px 0 15px; margin-top: 10px; border-radius:5px; ">
+								<h2 class="s-titleDet">Sobre este vehículo</h2>
+								<p>
+                                   {{car.description|raw}}</p>
+							</div>
+						</div>
+						<div class="b-detail__main-info-extra">
+							<h2 class="s-titleDet">ACCESORIOS</h2>
+							<div class="row">
+								<div class="col-xs-4">
+									{{car.accesories|raw}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-xs-12">
+					<aside class="b-detail__main-aside">
+						<div class="b-detail__main-aside-desc">
+							<h2 class="s-titleDet">Descripci&oacuten</h2>
+							<div class="row">
+								<div class="col-xs-6">
+									<h4 class="b-detail__main-aside-desc-title">Marca</h4>
+								</div>
+								<div class="col-xs-6">
+									<p class="b-detail__main-aside-desc-value">{{car.model.maker.name}}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-6">
+									<h4 class="b-detail__main-aside-desc-title">Modelo</h4>
+								</div>
+								<div class="col-xs-6">
+									<p class="b-detail__main-aside-desc-value">{{car.model.name}}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-6">
+									<h4 class="b-detail__main-aside-desc-title">Kilometraje</h4>
+								</div>
+								<div class="col-xs-6">
+									<p class="b-detail__main-aside-desc-value">{{car.kilometers}} km</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-6">
+									<h4 class="b-detail__main-aside-desc-title">Tipo</h4>
+								</div>
+								<div class="col-xs-6">
+									<p class="b-detail__main-aside-desc-value">{{car.type}}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-6">
+									<h4 class="b-detail__main-aside-desc-title">Motorr</h4>
+								</div>
+								<div class="col-xs-6">
+									<p class="b-detail__main-aside-desc-value">{{car.motor}}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-6">
+									<h4 class="b-detail__main-aside-desc-title">Trasmisi&oacuten</h4>
+								</div>
+								<div class="col-xs-6">
+									<p class="b-detail__main-aside-desc-value">{{car.transmision}}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-6">
+									<h4 class="b-detail__main-aside-desc-title">Exterior</h4>
+								</div>
+								<div class="col-xs-6">
+									<p class="b-detail__main-aside-desc-value">{{car.exterior}}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-6">
+									<h4 class="b-detail__main-aside-desc-title">Interior</h4>
+								</div>
+								<div class="col-xs-6">
+									<p class="b-detail__main-aside-desc-value">{{car.interior}}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-6">
+									<h4 class="b-detail__main-aside-desc-title">Pasajeros/Puertas</h4>
+								</div>
+								<div class="col-xs-6">
+									<p class="b-detail__main-aside-desc-value">{{car.passengers}} Pasajeros / {{car.doors}} Puertas</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-6">
+									<h4 class="b-detail__main-aside-desc-title">Combustible</h4>
+								</div>
+								<div class="col-xs-6">
+									<p class="b-detail__main-aside-desc-value">{{car.gas}}</p>
+								</div>
+							</div>
+						</div>
+						<div class="b-detail__main-aside-about">
+							<h2 class="s-titleDet">CONTACTA AL VENDEDOR</h2>
+							<div class="b-detail__main-aside-about-call">
+								<span class="fa fa-phone"></span>
+								<div>(809)-375-4027</div>
+								<p>Llamanos y recibe informacion sobre este vehiculo.</p>
+							</div>
+							<div class="b-detail__main-aside-about-seller">
+								<p>Dealer: <span>Sierra Motors</span></p>
+							</div>
+							<div class="b-detail__main-aside-about-form">
+								<form id="contactForm" action="/" method="post">
+									<input type="text" placeholder="NOMBRE" value="" name="name" />
+									<input type="email" placeholder="CORREO" value="" name="email" />
+									<input type="tel" placeholder="TELÉFONO" value="" name="phone" class="phone" />
+									<textarea name="message" placeholder="Mensaje"></textarea>
+								<!--     <div><input type="checkbox" name="one" value="" /><label>Enviarme una copia de este correo</label></div> -->
+									<button onClick="contactForm();" type="button" class="btn m-btn">ENVIAR<span class="fa fa-angle-right"></span></button>
+								</form>
+								<br>
+				                <div id="contactFormMessage" style="display:none;" class="alert alert-success">Mensaje enviado correctamente.</div>
+							</div>
+						</div>
+						<div class="b-detail__main-aside-payment">
+							<h2 class="s-titleDet">CALCULADORA DE CUOTAS</h2>
+							<div class="b-detail__main-aside-payment-form">
+								<form action="/" method="post">
+									<input type="text" placeholder="MONTO DEL PRESTAMO EN RD$" value="" name="argarg" />
+									<input type="text" placeholder="PAGO INICIAL" value="" name="argarg" />
+									<div class="s-relative">
+										<select name="select" class="m-select">
+											<option value="">PLAZO EN MESES</option>
+										</select>
+										<span class="fa fa-caret-down"></span>
+									</div>
+									<input type="text" placeholder="TASA DE INTERES EN %" value="" name="argarg" />
+									<button type="submit" class="btn m-btn">ESTIMAR PAGOS<span class="fa fa-angle-right"></span></button>
+								</form>
+							</div>
+							<div class="b-detail__main-aside-about-call">
+								<span class="fa fa-calculator"></span>
+								<div>RD $2,500 <p>POR MES</p></div>
+								<p>TOTAL DE CUOTAS: <span>50</span></p>
+							</div>
+						</div>
+					</aside>
+				</div>
+			</div>
+		</div>
+	</div>
+</section><!--b-detail-->
+
+
+
+<section class="b-related">
+	<div class="container">
+		<h2 class="s-title">VEHÍCULOS RELACIONADOS</h2>
+		<div class="row">
+			<div class="col-xs-12 col-md-3">
+				<div class="b-featured__item ">
+					<a href="detail.html">
+						<img  class="miniatura" src="{{"assets/images/car1.jpeg"|theme}}" alt="mers" />
+					</a>
+					<div class="b-featured__item-price">
+						RD $695,000
+					</div>
+					<div class="clearfix"></div>
+					<h5><a href="detail.html">Suzuki Grand Vitara 2015</a></h5>
+					<div class="b-featured__item-count"><span class="fa fa-tachometer"></span>35,000 KM</div>
+					<div class="b-featured__item-links">
+						<a href="#">Used</a>
+						<a href="#">2014</a>
+						<a href="#">Manual</a>
+						<a href="#">Orange</a>
+						<a href="#">Petrol</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-3">
+				<div class="b-featured__item">
+					<a href="detail.html">
+						<img  class="miniatura" src="{{"assets/images/car2.jpg"|theme}}" alt="audi" />
+					</a>
+					<div class="b-featured__item-price">
+						RD $460,900
+					</div>
+					<div class="clearfix"></div>
+					<h5><a href="detail.html">Nissan Frontier NP300 2018</a></h5>
+					<div class="b-featured__item-count"><span class="fa fa-tachometer"></span>0.00 KM</div>
+					<div class="b-featured__item-links">
+						<a href="#">Used</a>
+						<a href="#">2015</a>
+						<a href="#">Manual</a>
+						<a href="#">Orange</a>
+						<a href="#">Petrol</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-3">
+				<div class="b-featured__item ">
+					<a href="detail.html">
+						<img class="miniatura" src="{{"assets/images/car1.jpeg"|theme}}" alt="aston" />
+					</a>
+					<div class="b-featured__item-price">
+						RD $380,000
+					</div>
+					<div class="clearfix"></div>
+					<h5><a href="detail.html">Hyundai Grandeur 2008</a></h5>
+					<div class="b-featured__item-count"><span class="fa fa-tachometer"></span>35,000 KM</div>
+					<div class="b-featured__item-links">
+						<a href="#">Used</a>
+						<a href="#">2014</a>
+						<a href="#">Manual</a>
+						<a href="#">Orange</a>
+						<a href="#">Petrol</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-3">
+				<div class="b-featured__item">
+					<a href="detail.html">
+						<img  class="miniatura" src="{{"assets/images/car4.jpg"|theme}}" alt="jaguar" />
+					</a>
+					<div class="b-featured__item-price">
+						RD $515,000
+					</div>
+					<div class="clearfix"></div>
+					<h5><a href="detail.html">Honda Accord 2009</a></h5>
+					<div class="b-featured__item-count"><span class="fa fa-tachometer"></span>0.00</div>
+					<div class="b-featured__item-links">
+						<a href="#">Used</a>
+						<a href="#">2015</a>
+						<a href="#">Manual</a>
+						<a href="#">Orange</a>
+						<a href="#">Petrol</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section><!--"b-related-->

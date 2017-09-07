@@ -1,0 +1,26 @@
+columns:
+    name:
+        label: NOMBRE
+        type: text
+        searchable: true
+        sortable: true
+    description:
+        label: DESCRIPCION
+        type: text
+        searchable: true
+        sortable: true
+    facebook:
+        label: FACEBOOK
+        type: text
+        searchable: true
+        sortable: true
+    twitter:
+        label: TWITTER
+        type: text
+        searchable: true
+        sortable: true
+    instagram:
+        label: INSTAGRAM
+        type: text
+        searchable: true
+        sortable: true

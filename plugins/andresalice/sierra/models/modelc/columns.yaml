@@ -1,0 +1,11 @@
+columns:
+    name:
+        label: name
+        type: text
+        searchable: true
+        sortable: true
+    make_id:
+        label: make_id
+        type: number
+        searchable: true
+        sortable: true

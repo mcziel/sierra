@@ -1,0 +1,10 @@
+name: Make
+form: $/andresalice/sierra/models/make/fields.yaml
+modelClass: Andresalice\Sierra\Models\Make
+defaultRedirect: andresalice/sierra/make
+create:
+    redirect: 'andresalice/sierra/make/update/:id'
+    redirectClose: andresalice/sierra/make
+update:
+    redirect: andresalice/sierra/make
+    redirectClose: andresalice/sierra/make

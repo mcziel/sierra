@@ -1,0 +1,10 @@
+name: Car
+form: $/andresalice/sierra/models/car/fields.yaml
+modelClass: Andresalice\Sierra\Models\Car
+defaultRedirect: andresalice/sierra/car
+create:
+    redirect: 'andresalice/sierra/car/update/:id'
+    redirectClose: andresalice/sierra/car
+update:
+    redirect: andresalice/sierra/car
+    redirectClose: andresalice/sierra/car

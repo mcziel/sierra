@@ -1,0 +1,33 @@
+title = "Calculator"
+url = "/calculadora"
+layout = "Layout"
+is_hidden = 0
+==
+<section class="b-more">
+	<div class="container">
+		<aside class="b-detail__main-aside">
+			<div class="col-md-9 b-detail__main-aside-payment">
+				<h2 class="s-titleDet">CALCULADORA DE CUOTAS</h2>
+				<div class="b-detail__main-aside-payment-form">
+					<form action="/" method="post">
+						<input type="text" placeholder="MONTO DEL PRESTAMO EN RD$" value="" name="name" />
+						<input type="text" placeholder="PAGO INICIAL" value="" name="name" />
+						<div class="s-relative">
+							<select name="select" class="m-select">
+								<option value="">PLAZO EN MESES</option>
+							</select>
+							<span class="fa fa-caret-down"></span>
+						</div>
+						<input type="text" placeholder="TASA DE INTERES EN %" value="" name="name" />
+						<button type="submit" class="btn m-btn">ESTIMAR PAGOS<span class="fa fa-angle-right"></span></button>
+					</form>
+				</div>
+				<div class=" col-md-6 b-detail__main-aside-about-call">
+					<span class="fa fa-calculator"></span>
+					<div>RD $2,500 <p>POR MES</p></div>
+					<p>TOTAL DE CUOTAS: <span>50</span></p>
+				</div>
+			</div>
+		</aside>
+	</div>
+</section><!--b-more-->

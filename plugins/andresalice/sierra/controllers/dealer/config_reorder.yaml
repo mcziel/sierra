@@ -1,0 +1,4 @@
+title: Dealer
+modelClass: Andresalice\Sierra\Models\Dealer
+toolbar:
+    buttons: reorder_toolbar

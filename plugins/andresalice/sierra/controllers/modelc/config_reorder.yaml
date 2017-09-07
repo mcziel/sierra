@@ -1,0 +1,4 @@
+title: Modelc
+modelClass: Andresalice\Sierra\Models\Modelc
+toolbar:
+    buttons: reorder_toolbar

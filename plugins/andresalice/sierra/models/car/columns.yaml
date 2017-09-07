@@ -1,0 +1,23 @@
+columns:
+    make_name:
+        label: MARCA
+    model_name:
+        label: MODELO
+        type: text
+        searchable: true
+        sortable: true
+        select: name
+        relation: model
+    dealer_id:
+        label: DEALER
+        type: text
+        searchable: true
+        sortable: true
+        select: name
+        relation: dealer
+    price:
+        label: PRECIO
+        type: text
+        searchable: true
+        sortable: true
+

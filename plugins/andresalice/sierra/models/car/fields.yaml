@@ -1,0 +1,122 @@
+fields:
+    dealer:
+        label: DEALER
+        oc.commentPosition: ''
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+    status:
+        label: ESTADO
+        oc.commentPosition: ''
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: dropdown
+        options: listUse
+    model:
+        label: MODELO
+        oc.commentPosition: ''
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+    kilometers:
+        label: KILOMETRAJE
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    type:
+        label: Tipo
+        oc.commentPosition: ''
+        span: auto
+        type: dropdown
+        options: listType
+    motor:
+        label: MOTOR
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    gas:
+        label: COMBUSTIBLE
+        oc.commentPosition: ''
+        span: auto
+        type: dropdown
+        options: listGas
+    exterior:
+        label: EXTERIOR
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    transmision:
+        label: TRANSMISION
+        oc.commentPosition: ''
+        span: auto
+        type: dropdown
+        options: listTransmisions
+    interior:
+        label: INTERIOR
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    passengers:
+        label: PASAJEROS
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    doors:
+        label: PUERTAS
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    price:
+        label: PRECIO
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    year:
+        label: AÑO
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    color:
+        label: COLOR
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    accesories:
+        label: ACCESORIOS
+        size: large
+        oc.commentPosition: ''
+        span: auto
+        type: richeditor
+    description:
+        label: DESCRIPCION
+        size: large
+        oc.commentPosition: ''
+        span: auto
+        type: richeditor
+    featured_image:
+        label: 'IMAGEN PRINCIPAL'
+        oc.commentPosition: ''
+        mode: image
+        imageWidth: 100
+        imageHeight: 100
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        span: auto
+        type: fileupload
+    images:
+        label: IMAGENES
+        oc.commentPosition: ''
+        mode: image
+        imageWidth: 100
+        imageHeight: 100
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        span: auto
+        type: fileupload

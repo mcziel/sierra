@@ -1,0 +1,4 @@
+title: Make
+modelClass: Andresalice\Sierra\Models\Make
+toolbar:
+    buttons: reorder_toolbar
