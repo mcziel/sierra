@@ -1,6 +1,8 @@
 <?php namespace Andresalice\Sierra\Models;
 
 use Model;
+use Andresalice\Sierra\Models\Modelc;
+use Andresalice\Sierra\Models\Make;
 
 /**
  * Model
@@ -31,6 +33,14 @@ class Car extends Model
     public $attachMany = ['images' => ['System\Models\File']];
 
     public $belongsTo = ['model' => 'Andresalice\Sierra\Models\Modelc', 'dealer' => 'Andresalice\Sierra\Models\Dealer'];
+
+    public function beforeSave()
+    {
+    	$model = Modelc::find($this->model_id);
+    	$make = Make::find($model->make_id); 
+
+        $this->title = $make->name . " " . $model->name . " " . $this->year . " " . $this->type . " " . $this->gas . " " . $this->transmision . " " . $this->color . " " . $this->status;
+    }
 
     public function scopeWithMakeName ($query) {
         $car = 'andresalice_sierra_cars';

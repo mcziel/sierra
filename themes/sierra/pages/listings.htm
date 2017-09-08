@@ -4,9 +4,15 @@ layout = "Layout"
 is_hidden = 0
 ==
 <?php
-function onGetCars()
+use Andresalice\Sierra\Models\Car;
+
+function onSearch()
 {
-    echo "LLEGO";
+    $search = post("search");
+    $search = explode(" ", $search);
+    $this['cars'] = Car::where(function($query) use ($search){
+        foreach($search as $s){if($s){$query->orWhere("title", "LIKE", "%" . $s . "%");}}  
+    })->paginate(2);
 }
 ?>
 ==
@@ -15,7 +21,7 @@ function onGetCars()
 		<div class="row">
             <div class="col-lg-3 col-xs-12">
                 <div class="b-infoBar__compare">
-                    <a href="compare.html" class="b-infoBar__compare-item"><span class="fa fa-search"></span>VEHICLES ENCONTRADOS: 2</a>
+                    <a href="compare.html" class="b-infoBar__compare-item"><span class="fa fa-search"></span>VEHICULOS ENCONTRADOS: 2</a>
                 </div>
             </div>
 			<div class="col-lg-9 col-xs-12">
@@ -130,290 +136,43 @@ function onGetCars()
 			</div>
 			<div id="tabla" class="col-lg-9 col-sm-8 col-xs-12">
                  <div class="row">
-                    <div class="col-xs-12 col-md-3">
-                        <div class="b-featured__item ">
-                            <a href="detail.html">
-                                <img  class="miniatura" src="{{"assets/images/car1.jpeg"|theme}}" alt="mers" />
-                            </a>
-                            <div class="b-featured__item-price">
-                                RD $695,000
-                            </div>
-                            <div class="clearfix"></div>
-                            <h5><a href="detail.html">Suzuki Grand Vitara 2015</a></h5>
-                            <div class="b-featured__item-count"><span class="fa fa-tachometer"></span>35,000 KM</div>
-                            <div class="b-featured__item-links">
-                                <a href="#">Used</a>
-                                <a href="#">2014</a>
-                                <a href="#">Manual</a>
-                                <a href="#">Orange</a>
-                                <a href="#">Petrol</a>
-                            </div>
+                     {% for car in cars %}
+                        <div class="col-xs-12 col-md-3">
+                            <div class="b-featured__item ">
+            					<a href="{{"detail"|page({id: car.id})}}">
+            						<img  class="miniatura" src="{{car.featured_image.getPath}}" alt="{{car.model.name}}" />
+            					</a>
+            					<div class="b-featured__item-price">
+            						RD${{ car.price|number_format() }}
+            					</div>
+            					<div class="clearfix"></div>
+            					<h5><a href="{{"detail"|page}}">{{car.model.maker.name}} {{car.model.name}} {{car.year}}</a></h5>
+            					<div class="b-featured__item-count"><span class="fa fa-tachometer"></span>{{car.kilometers}} KM</div>
+            					<div class="b-featured__item-links">
+            						<a href="javascript:;">{{car.status}}</a>
+            						<a href="javascript:;">{{car.year}}</a>
+            						<a href="javascript:;">{{car.tranmision}}</a>
+            						<a href="javascript:;">{{car.color}}</a>
+            						<a href="javascript:;">{{car.gas}}</a>
+            					</div>
+            				</div>
                         </div>
-                    </div>
-                    <div class="col-xs-12 col-md-3">
-                        <div class="b-featured__item">
-                            <a href="detail.html">
-                                <img  class="miniatura" src="{{"assets/images/car2.jpg"|theme}}" alt="audi" />
-                            </a>
-                            <div class="b-featured__item-price">
-                                RD $460,900
-                            </div>
-                            <div class="clearfix"></div>
-                            <h5><a href="detail.html">Nissan Frontier NP300 2018</a></h5>
-                            <div class="b-featured__item-count"><span class="fa fa-tachometer"></span>0.00 KM</div>
-                            <div class="b-featured__item-links">
-                                <a href="#">Used</a>
-                                <a href="#">2015</a>
-                                <a href="#">Manual</a>
-                                <a href="#">Orange</a>
-                                <a href="#">Petrol</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md-3">
-                        <div class="b-featured__item ">
-                            <a href="detail.html">
-                                <img class="miniatura" src="{{"assets/images/car1.jpeg"|theme}}" alt="aston" />
-                            </a>
-                            <div class="b-featured__item-price">
-                                RD $380,000
-                            </div>
-                            <div class="clearfix"></div>
-                            <h5><a href="detail.html">Hyundai Grandeur 2008</a></h5>
-                            <div class="b-featured__item-count"><span class="fa fa-tachometer"></span>35,000 KM</div>
-                            <div class="b-featured__item-links">
-                                <a href="#">Used</a>
-                                <a href="#">2014</a>
-                                <a href="#">Manual</a>
-                                <a href="#">Orange</a>
-                                <a href="#">Petrol</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md-3">
-                        <div class="b-featured__item">
-                            <a href="detail.html">
-                                <img  class="miniatura" src="{{"assets/images/car4.jpg"|theme}}" alt="jaguar" />
-                            </a>
-                            <div class="b-featured__item-price">
-                                RD $515,000
-                            </div>
-                            <div class="clearfix"></div>
-                            <h5><a href="detail.html">Honda Accord 2009</a></h5>
-                            <div class="b-featured__item-count"><span class="fa fa-tachometer"></span>0.00</div>
-                            <div class="b-featured__item-links">
-                                <a href="#">Used</a>
-                                <a href="#">2015</a>
-                                <a href="#">Manual</a>
-                                <a href="#">Orange</a>
-                                <a href="#">Petrol</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-md-3">
-                        <div class="b-featured__item ">
-                            <a href="detail.html">
-                                <img  class="miniatura" src="{{"assets/images/car1.jpeg"|theme}}" alt="mers" />
-                            </a>
-                            <div class="b-featured__item-price">
-                                RD $695,000
-                            </div>
-                            <div class="clearfix"></div>
-                            <h5><a href="detail.html">Suzuki Grand Vitara 2015</a></h5>
-                            <div class="b-featured__item-count"><span class="fa fa-tachometer"></span>35,000 KM</div>
-                            <div class="b-featured__item-links">
-                                <a href="#">Used</a>
-                                <a href="#">2014</a>
-                                <a href="#">Manual</a>
-                                <a href="#">Orange</a>
-                                <a href="#">Petrol</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md-3">
-                        <div class="b-featured__item">
-                            <a href="detail.html">
-                                <img  class="miniatura" src="{{"assets/images/car2.jpg"|theme}}" alt="audi" />
-                            </a>
-                            <div class="b-featured__item-price">
-                                RD $460,900
-                            </div>
-                            <div class="clearfix"></div>
-                            <h5><a href="detail.html">Nissan Frontier NP300 2018</a></h5>
-                            <div class="b-featured__item-count"><span class="fa fa-tachometer"></span>0.00 KM</div>
-                            <div class="b-featured__item-links">
-                                <a href="#">Used</a>
-                                <a href="#">2015</a>
-                                <a href="#">Manual</a>
-                                <a href="#">Orange</a>
-                                <a href="#">Petrol</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md-3">
-                        <div class="b-featured__item ">
-                            <a href="detail.html">
-                                <img class="miniatura" src="{{"assets/images/car1.jpeg"|theme}}" alt="aston" />
-                            </a>
-                            <div class="b-featured__item-price">
-                                RD $380,000
-                            </div>
-                            <div class="clearfix"></div>
-                            <h5><a href="detail.html">Hyundai Grandeur 2008</a></h5>
-                            <div class="b-featured__item-count"><span class="fa fa-tachometer"></span>35,000 KM</div>
-                            <div class="b-featured__item-links">
-                                <a href="#">Used</a>
-                                <a href="#">2014</a>
-                                <a href="#">Manual</a>
-                                <a href="#">Orange</a>
-                                <a href="#">Petrol</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md-3">
-                        <div class="b-featured__item">
-                            <a href="detail.html">
-                                <img  class="lista-miniatura" src="{{"assets/images/car4.jpg"|theme}}" alt="jaguar" />
-                            </a>
-                            <div class="b-featured__item-price">
-                                RD $515,000
-                            </div>
-                            <div class="clearfix"></div>
-                            <h5><a href="detail.html">Honda Accord 2009</a></h5>
-                            <div class="b-featured__item-count"><span class="fa fa-tachometer"></span>0.00</div>
-                            <div class="b-featured__item-links">
-                                <a href="#">Used</a>
-                                <a href="#">2015</a>
-                                <a href="#">Manual</a>
-                                <a href="#">Orange</a>
-                                <a href="#">Petrol</a>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
 		    </div>
 
-            <div id="lista">
-                                    <div class="b-items__cars-one">
-                    <div class="b-items__cars-one-img">
-                         <img  class="lista-miniatura" src="{{"assets/images/car4.jpg"|theme}}" alt="jaguar" />
-                    </div>
-                    <div class="b-items__cars-one-info">
-                            <h4>Nissan Maxima SV Premium</h4>
-                        <div class="row s-noRightMargin">
-                            <div class="col-md-9 col-xs-12">
-                                <p>In a pickup market gone fancy, the Silverado sticks to its basic-truck recipe. The steering is accurate, and the Silverado</p>
-                                <div class="row m-smallPadding m-width">
-                                    <div class="col-xs-6">
-                                        <div class="row m-smallPadding">
-                                            <div class="col-xs-6">
-                                                <span class="b-items__cars-one-info-title">Tipoe:</span>
-                                                <span class="b-items__cars-one-info-title">Millaje:</span>
-                                                <span class="b-items__cars-one-info-title">Transmicion:</span>
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <span class="b-items__cars-one-info-value">Coupe</span>
-                                                <span class="b-items__cars-one-info-value">0,000 KM</span>
-                                                <span class="b-items__cars-one-info-value">6-Speed Manual</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <div class="row m-smallPadding">
-                                            <div class="col-xs-4">
-                                                <span class="b-items__cars-one-info-title">Motor:</span>
-                                                <span class="b-items__cars-one-info-title">Color:</span>
-                                                <span class="b-items__cars-one-info-title">Spec:</span>
-                                            </div>
-                                            <div class="col-xs-8">
-                                                <span class="b-items__cars-one-info-value">DOHC inline-6</span>
-                                                <span class="b-items__cars-one-info-value">Black</span>
-                                                <span class="b-items__cars-one-info-value">4-Passenger, 2-Door</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-xs-12">
-                                <div class="b-items__cars-one-info-price">
-                                    <div class="pull-right">
-                                        <h3>Precio:</h3>
-                                        <h4>$603,325</h4>
-                                    </div>
-                                    <a href="detail.html" class="btn m-btn">VER DETALLE<span class="fa fa-angle-right"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="b-items__cars-one">
-                    <div class="b-items__cars-one-img">
-                         <img  class="lista-miniatura" src="{{"assets/images/car4.jpg"|theme}}" alt="jaguar" />
-                    </div>
-                    <div class="b-items__cars-one-info">
-                            <h4>Nissan Maxima SV Premium</h4>
-                        <div class="row s-noRightMargin">
-                            <div class="col-md-9 col-xs-12">
-                                <p>In a pickup market gone fancy, the Silverado sticks to its basic-truck recipe. The steering is accurate, and the Silverado</p>
-                                <div class="row m-smallPadding m-width">
-                                    <div class="col-xs-6">
-                                        <div class="row m-smallPadding">
-                                            <div class="col-xs-6">
-                                                <span class="b-items__cars-one-info-title">Tipoe:</span>
-                                                <span class="b-items__cars-one-info-title">Millaje:</span>
-                                                <span class="b-items__cars-one-info-title">Transmicion:</span>
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <span class="b-items__cars-one-info-value">Coupe</span>
-                                                <span class="b-items__cars-one-info-value">0,000 KM</span>
-                                                <span class="b-items__cars-one-info-value">6-Speed Manual</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <div class="row m-smallPadding">
-                                            <div class="col-xs-4">
-                                                <span class="b-items__cars-one-info-title">Motor:</span>
-                                                <span class="b-items__cars-one-info-title">Color:</span>
-                                                <span class="b-items__cars-one-info-title">Spec:</span>
-                                            </div>
-                                            <div class="col-xs-8">
-                                                <span class="b-items__cars-one-info-value">DOHC inline-6</span>
-                                                <span class="b-items__cars-one-info-value">Black</span>
-                                                <span class="b-items__cars-one-info-value">4-Passenger, 2-Door</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-xs-12">
-                                <div class="b-items__cars-one-info-price">
-                                    <div class="pull-right">
-                                        <h3>Precio:</h3>
-                                        <h4>$603,325</h4>
-                                    </div>
-                                    <a href="detail.html" class="btn m-btn">VER DETALLE<span class="fa fa-angle-right"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-				<div class="b-items__pagination">
-					<div class="b-items__pagination-main">
-						<a data-toggle="modal" data-target="#myModal" href="#" class="m-left"><span class="fa fa-angle-left"></span></a>
-						<span class="m-active"><a href="#">1</a></span>
-						<span><a href="#">2</a></span>
-						<span><a href="#">3</a></span>
-						<span><a href="#">4</a></span>
-						<a href="#" class="m-right"><span class="fa fa-angle-right"></span></a>    
-					</div>
+			<div class="b-items__pagination">
+				<div class="b-items__pagination-main">
+					<a data-toggle="modal" data-target="#myModal" href="#" class="m-left"><span class="fa fa-angle-left"></span></a>
+					<span class="m-active"><a href="#">1</a></span>
+					<span><a href="#">2</a></span>
+					<span><a href="#">3</a></span>
+					<span><a href="#">4</a></span>
+					<a href="#" class="m-right"><span class="fa fa-angle-right"></span></a>  
+					<!-- {{ cars.render|raw }} -->
 				</div>
 			</div>
+		</div>
 		</div>
 	</div>
 </div><!--b-items-->

@@ -105,7 +105,7 @@ function onContactForm()
 				<div class="row">
 					<div class="col-md-9 col-md-offset-3 col-xs-6 col-xs-offset-6">
 						<ul class="b-features__items">
-							<li><a href="{{"calculator"|page}}"> Calculadora de prestamos</a></li>
+							<!-- <li><a href="{{"calculator"|page}}"> Calculadora de prestamos</a></li> -->
 							<li><a href="{{"compare"|page}}">Comparar vehiculos</a></li>
 						</ul>
 					</div>
@@ -191,7 +191,6 @@ function onContactForm()
 			</div>
 		</footer><!--b-footer-->
 		<script src="{{ ['@jquery','@framework','@framework.extras']|theme }}"></script>
-		{% scripts %}
 		<!--Main-->
 		<script src="{{"assets/js/jquery.mask.js"|theme}}"></script>
 		<script src="{{"assets/js/jquery-ui.min.js"|theme}}"></script>
@@ -214,6 +213,8 @@ function onContactForm()
 		<script src="{{"assets/js/wow.min.js"|theme}}"></script>
 		<script src="{{"assets/js/jquery.placeholder.min.js"|theme}}"></script>
 		<script src="{{"assets/js/theme.js"|theme}}"></script>
+		<script src="{{"assets/js/jquery_number.js"|theme}}"></script>
+        {% scripts %}
         <script>
             $(document).ready(function(){
                $('.phone').mask('000-000-0000'); 
