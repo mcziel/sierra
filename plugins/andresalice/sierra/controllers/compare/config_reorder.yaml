@@ -1,0 +1,4 @@
+title: Compare
+modelClass: Andresalice\Sierra\Models\Compare
+toolbar:
+    buttons: reorder_toolbar

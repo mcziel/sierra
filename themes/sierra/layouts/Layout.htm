@@ -243,5 +243,81 @@ function onContactForm()
             	else { return false; }
             }   
         </script>
+        {% if this.page.id == "inicio" or this.page.id == "listings" %}
+        <script>
+             $(document).ready(function(){
+                    filtro(); 
+            });
+            
+            $('#makec').on('change', function() {
+              $.request('onGetModels', {
+                  data: {make_id: this.value}
+              })
+            })
+            
+            $('#moneda').on('change', function() {
+                filtro(); 
+            })
+            
+            function filtro()
+            {
+                var desde = $("#desde");
+                var hasta = $("#hasta");
+                var moneda = $("select[name=moneda]").val();
+                if(moneda == 1)
+                {
+                	desde.html(''); hasta.html('');
+                	desde.append('<option value="">Desde:</option>');
+                	desde.append('<option value="25000">RD$25,000</option>');
+                	desde.append('<option value="50000">RD$50,000</option>');
+                	desde.append('<option value="100000">RD$100,000</option>');
+                	desde.append('<option value="200000">RD$200,000</option>');
+                	desde.append('<option value="300000">RD$300,000</option>');
+                	desde.append('<option value="400000">RD$400,000</option>');
+                	desde.append('<option value="500000">RD$500,000</option>');
+                	desde.append('<option value="600000">RD$600,000</option>');
+                	desde.append('<option value="700000">RD$700,000</option>');
+                	desde.append('<option value="800000">RD$800,000</option>');
+                	desde.append('<option value="900000">RD$900,000</option>');
+                	desde.append('<option value="1000000">RD$1,000,000</option>');
+                	desde.append('<option value="1500000">RD$1,500,000</option>');
+                	desde.append('<option value="2000000">RD$2,000,000</option>');
+                	hasta.append('<option value="">Hasta:</option>');
+                	hasta.append('<option value="25000">RD$25,000</option>');
+                	hasta.append('<option value="50000">RD$50,000</option>');
+                	hasta.append('<option value="100000">RD$100,000</option>');
+                	hasta.append('<option value="200000">RD$200,000</option>');
+                	hasta.append('<option value="300000">RD$300,000</option>');
+                	hasta.append('<option value="400000">RD$400,000</option>');
+                	hasta.append('<option value="500000">RD$500,000</option>');
+                	hasta.append('<option value="600000">RD$600,000</option>');
+                	hasta.append('<option value="700000">RD$700,000</option>');
+                	hasta.append('<option value="800000">RD$800,000</option>');
+                	hasta.append('<option value="900000">RD$900,000</option>');
+                	hasta.append('<option value="1000000">RD$1,000,000</option>');
+                	hasta.append('<option value="1500000">RD$1,500,000</option>');
+                	hasta.append('<option value="2000000">RD$2,000,000+</option>');
+                }
+                else
+                {
+                	desde.html(''); hasta.html('');
+                	desde.append('<option value="">Desde:</option>');
+                	desde.append('<option value="1000">$1,000</option>');
+                	desde.append('<option value="5000">$5,000</option>');
+                	desde.append('<option value="10000">$10,000</option>');
+                	desde.append('<option value="25000">$25,000</option>');
+                	desde.append('<option value="50000">$50,000</option>');
+                	desde.append('<option value="100000">$100,000</option>');
+                	hasta.append('<option value="">Hasta:</option>');
+                	hasta.append('<option value="1000">$1,000</option>');
+                	hasta.append('<option value="5000">$5,000</option>');
+                	hasta.append('<option value="10000">$10,000</option>');
+                	hasta.append('<option value="25000">$25,000</option>');
+                	hasta.append('<option value="50000">$50,000</option>');
+                	hasta.append('<option value="100000">$100,000</option>');
+                }
+            }
+        </script>
+        {% endif %}
 	</body>
 </html>

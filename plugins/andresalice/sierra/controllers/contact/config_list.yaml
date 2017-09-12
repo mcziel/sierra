@@ -1,11 +1,12 @@
-list: $/andresalice/sierra/models/contact/columns.yaml
-modelClass: Andresalice\Sierra\Models\Contact
 title: Contact
+modelClass: Andresalice\Sierra\Models\Contact
+list: $/andresalice/sierra/models/contact/columns.yaml
+recordUrl: 'andresalice/sierra/contact/update/:id'
 noRecordsMessage: 'backend::lang.list.no_records'
+recordsPerPage: '20'
 showSetup: true
 showCheckboxes: true
 toolbar:
     buttons: list_toolbar
     search:
         prompt: 'backend::lang.list.search_prompt'
-recordUrl: 'andresalice/sierra/contact/update/:id'

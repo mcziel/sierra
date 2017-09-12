@@ -1,0 +1,10 @@
+name: Compare
+form: $/andresalice/sierra/models/compare/fields.yaml
+modelClass: Andresalice\Sierra\Models\Compare
+defaultRedirect: andresalice/sierra/compare
+create:
+    redirect: 'andresalice/sierra/compare/update/:id'
+    redirectClose: andresalice/sierra/compare
+update:
+    redirect: andresalice/sierra/compare
+    redirectClose: andresalice/sierra/compare

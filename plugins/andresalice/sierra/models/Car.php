@@ -72,4 +72,9 @@ class Car extends Model
         return ['Automática' => 'Automática', 'Mecánica' => 'Mecánica', 'Tritónica' => 'Tritónica'];
     }
 
+    public function listTractions ($keyValue=null, $fieldName=null) 
+    {
+        return ['2WD' => '2WD','4x4' => '4x4', 'AWD' => 'AWD', '4WD' => '4WD', 'FWD' => 'FWD', 'RWD' => 'RWD'];
+    }
+
 }
