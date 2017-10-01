@@ -35,11 +35,11 @@ function onContactForm()
 		<!-- Loader -->
 		<div id="page-preloader"><span class="spinner"></span></div>
 		<!-- Loader end -->
-		<header class="b-topBar">
+				<header class="b-topBar">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-4 col-xs-6">
-						<div class="b-topBar__addr">
+						<div class="b-topBar__addr"  style="text-transform: lowercase;">
 							<span class="fa fa-map-marker"></span>
 							Sierra Motors, Carr. Sanchez, 91000
 						</div>
@@ -51,7 +51,7 @@ function onContactForm()
 						</div>
 					</div>
 					<div class="col-md-3 col-xs-6">
-						<div class="b-topBar__tel">
+						<div class="b-topBar__tel" style="text-transform: lowercase;">
 							<span class="fa fa-envelope"></span>
 							sierramotors.sc@gmail.com
 						</div>
@@ -59,8 +59,8 @@ function onContactForm()
 					<div class="col-md-2 col-xs-6">
 						<div class="b-topBar__tel">
 							<span style="margin-right: 2px"><strong>¡Síguenos! </strong></span>
-							<a href="#"><img style="width: 20px" src="{{"assets/images/facebook.png"|theme}}"></a>
-							<a href="#"><img style="width: 20px" src="{{"assets/images/instagram.png"|theme}}"></a>
+							<a href="https://www.facebook.com/sierramotorsdo"><img style="width: 20px" src="{{"assets/images/facebook.png"|theme}}"></a>
+							<a href="https://www.instagram.com/sierramotorsdo/"><img style="width: 20px" src="{{"assets/images/instagram.png"|theme}}"></a>
 						</div>
 					</div>
 				</div>
@@ -105,7 +105,7 @@ function onContactForm()
 				<div class="row">
 					<div class="col-md-9 col-md-offset-3 col-xs-6 col-xs-offset-6">
 						<ul class="b-features__items">
-							<!-- <li><a href="{{"calculator"|page}}"> Calculadora de prestamos</a></li> -->
+							<li><a href="{{"calculator"|page}}"> Calculadora de prestamos</a></li>
 							<li><a href="{{"compare"|page}}">Comparar vehiculos</a></li>
 						</ul>
 					</div>
@@ -175,8 +175,8 @@ function onContactForm()
 					<div class="col-xs-6">
 						<div class="b-footer__content">
 							<div class="b-footer__content-social">
-								<a href="#"><span class="fa fa-facebook-square"></span></a>
-								<a href="#"><span class="fa fa-instagram"></span></a>
+								<a href="https://www.facebook.com/sierramotorsdo"><span class="fa fa-facebook-square"></span></a>
+								<a href="https://www.instagram.com/sierramotorsdo/"><span class="fa fa-instagram"></span></a>
 							</div>
 							<nav class="b-footer__content-nav">
 								<ul>
@@ -193,6 +193,7 @@ function onContactForm()
 		<script src="{{ ['@jquery','@framework','@framework.extras']|theme }}"></script>
 		<!--Main-->
 		<script src="{{"assets/js/jquery.mask.js"|theme}}"></script>
+		<script src="{{"assets/js/jquery_number.js"|theme}}"></script>
 		<script src="{{"assets/js/jquery-ui.min.js"|theme}}"></script>
 		<script src="{{"assets/js/bootstrap.min.js"|theme}}"></script>
 		<script src="{{"assets/js/modernizr.custom.js"|theme}}"></script>
@@ -212,8 +213,7 @@ function onContactForm()
 		<script src="{{"assets/js/jquery.smooth-scroll.js"|theme}}"></script>
 		<script src="{{"assets/js/wow.min.js"|theme}}"></script>
 		<script src="{{"assets/js/jquery.placeholder.min.js"|theme}}"></script>
-		<script src="{{"assets/js/theme.js"|theme}}"></script>
-		<script src="{{"assets/js/jquery_number.js"|theme}}"></script>
+		<script src="{{"assets/js/theme.js"|theme}}"></script>	
         {% scripts %}
         <script>
             $(document).ready(function(){
@@ -246,7 +246,7 @@ function onContactForm()
         {% if this.page.id == "inicio" or this.page.id == "listings" %}
         <script>
              $(document).ready(function(){
-                    filtro(); 
+                filtro(); 
             });
             
             $('#makec').on('change', function() {

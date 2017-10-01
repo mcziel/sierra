@@ -11,7 +11,7 @@ function onStart()
 {
     $car_id = $this->param("id");
     if(Session::has('ip')){$ip = Session::get('ip');}
-    else{$ip = Session::put('ip', rand(111111111111111,999999999999999));}
+    else{$ip = rand(111111111111111,999999999999999); Session::put('ip', $ip);}
     if($car_id)
     {
         if(!Compare::where("ip",$ip)->where("car_id",$car_id)->exists() && Compare::where("ip",$ip)->where("car_id",$car_id)->count() < 3)
@@ -24,9 +24,14 @@ function onStart()
     }
     $compares = Compare::where("ip",$ip)->get();
     $cars = array();
+    $counter = 0;
     foreach($compares as $c)
     {
-        $cars[] = Car::where("id",$c->car_id)->get();
+        if($counter <= 2)
+        {
+            $cars[] = Car::where("id",$c->car_id)->get();
+        }
+        $counter = $counter + 1;
     }
     $this['cars'] = $cars;
 }
@@ -47,7 +52,7 @@ function onDeleteCar()
 			</div>
 			<div class="col-sm-7 col-xs-12">
 				<div class="b-infoBar__btns">
-					<a href="{{"listings"|page}}" class="btn m-btn m-infoBtn">AGREGAR VEHÍCULOS<span class="fa fa-angle-right"></span></a>
+					<a href="{{"listings"|page({id:null})}}" class="btn m-btn m-infoBtn">AGREGAR VEHÍCULOS<span class="fa fa-angle-right"></span></a>
 				</div>
 			</div>
 		</div>
@@ -62,13 +67,18 @@ function onDeleteCar()
     			    {% for c in car %}
         				<div class="col-md-3 col-sm-4 col-xs-12 {% if loop.parent.loop.index == 1 %}col-md-offset-3{% endif %}">
         					<div class="b-compare__images-item s-lineDownCenter">
-        						<h3>{{c.model.maker.name}} {{c.model.name}} {{c.year}} <a href="javascript:;" onClick="onDeleteCar({{c.id}});" style="color:#21254f"><i class="fa fa-times-circle" aria-hidden="true"></i></a></h3>	
-        						<img class="img-responsive center-block"  src="{{c.featured_image.getPath}}" alt="jaguar" />
-        						<div class="b-compare__images-item-price m-right">RD${{ c.price|number_format() }}</div>
+        						<h3>{{c.model.maker.name}} {{c.model.name}} {{c.submodel}} {{c.year}} <a href="javascript:;" onClick="onDeleteCar({{c.id}});" style="color:#21254f"><i class="fa fa-times-circle" aria-hidden="true"></i></a></h3>	
+        						<a href="{{"detail"|page({id:c.id})}}">
+        						    <img class="img-responsive center-block"  src="{{c.featured_image.thumb(300,300)}}" alt="jaguar" />
+        						</a>
+        						<div class="b-compare__images-item-price m-right">{% if c.currency == 0 %}RD${% else %}US${% endif %}{{ c.price|number_format() }}</div>
         					</div>
         				</div>
     				{% endfor %}
 				{% endfor %}
+				{% if cars|length < 1 %}
+                <img class="img-responsive center-block" src="{{"assets/images/no-comparador.png"|theme}}"/>
+                {% endif %}
 			</div>
 		</div>
 		<div class="b-compare__block">
@@ -238,7 +248,7 @@ function onDeleteCar()
 			</div>
 		</div>
 		</div>
-		<div class="b-compare__links">
+		<div class="b-compare__links hidden">
 			<div class="row">
 			    {% for car in cars %}
     			    {% for c in car %}
@@ -249,7 +259,6 @@ function onDeleteCar()
 				{% endfor %}
 			</div>
 		</div>
-	</div>
 </section><!--b-compare-->
 {% put scripts %}
 <script>
@@ -257,7 +266,7 @@ function onDeleteCar(car_id)
 {
     $.request('onDeleteCar',{
           data: {car_id: car_id},
-          success: function() {location.reload();}
+          success: function() {window.location = "{{"compare"|page({id:null})}}";}
      })
  
 }

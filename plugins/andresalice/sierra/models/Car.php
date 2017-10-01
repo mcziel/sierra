@@ -39,22 +39,24 @@ class Car extends Model
     	$model = Modelc::find($this->model_id);
     	$make = Make::find($model->make_id); 
 
-        $this->title = $make->name . " " . $model->name . " " . $this->year . " " . $this->type . " " . $this->gas . " " . $this->transmision . " " . $this->color . " " . $this->status;
+        $this->title = $make->name . " " . $model->name . " " . $this->submodel . " " . $this->year . " " . $this->type . " " . $this->gas . " " . $this->transmision . " " . $this->color . " " . $this->status;
     }
 
     public function scopeWithMakeName ($query) {
         $car = 'andresalice_sierra_cars';
         $model = 'andresalice_sierra_carmodels';
         $make = 'andresalice_sierra_carmakes';
-        return $query->select($this->getTable() . '.*', $make . '.name as make_name', $model . '.name as model_name')
+        $dealer = 'andresalice_sierra_dealers';
+        return $query->select($this->getTable() . '.*', $make . '.name as make_name', $model . '.name as model_name', $dealer . '.name as dealer_name')
                      ->join($model, $car . '.model_id', '=', $model . '.id')
                      ->join($make, $model . '.make_id', '=', $make . '.id')
+                     ->join($dealer, $car . '.dealer_id', '=', $dealer . '.id')
                      ->get();
     }
 
     public function listType ($keyValue=null, $fieldName=null) 
     {
-        return ['Camioneta' => 'Camioneta', 'Jeepeta' => 'Jeepeta', 'Coupé/Sport' => 'Coupé/Sport', 'Sedán' => 'Sedán', 'Compacto' => 'Compacto'];
+        return ['Camioneta' => 'Camioneta', 'Jeepeta' => 'Jeepeta', 'Coupé/Sport' => 'Coupé/Sport', 'Sedán' => 'Sedán', 'Compacto' => 'Compacto', 'Camiones' => 'Camiones', 'Motores' => 'Motores'];
     }
 
     public function listUse ($keyValue=null, $fieldName=null) 
@@ -69,12 +71,12 @@ class Car extends Model
 
     public function listTransmisions ($keyValue=null, $fieldName=null) 
     {
-        return ['Automática' => 'Automática', 'Mecánica' => 'Mecánica', 'Tritónica' => 'Tritónica'];
+        return ['Automática' => 'Automática', 'Mecánica' => 'Mecánica', 'Sincronizada' => 'Sincronizada', 'Semiautomática' => 'Semiautomática','Mecánica o Automática' => 'Mecánica o Automática', 'Tiptronic' => 'Tiptronic'];
     }
 
     public function listTractions ($keyValue=null, $fieldName=null) 
     {
-        return ['2WD' => '2WD','4x4' => '4x4', 'AWD' => 'AWD', '4WD' => '4WD', 'FWD' => 'FWD', 'RWD' => 'RWD'];
+        return ['Delantera' => 'Delantera', 'Trasera' => 'Trasera', '2WD' => '2WD', '4WD' => '4WD', '4WD Full Time' => '4WD Full Time',];
     }
 
 }

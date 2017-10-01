@@ -11,9 +11,13 @@ permissions:
 navigation:
     content:
         label: Contenido
-        url: andresalice/sierra/contact
+        url: andresalice/sierra/car
         icon: icon-life-ring
         sideMenu:
+            cars:
+                label: Carros
+                url: andresalice/sierra/car
+                icon: icon-car
             contacts:
                 label: Contactos
                 url: andresalice/sierra/contact
@@ -22,7 +26,3 @@ navigation:
                 label: Dealers
                 url: andresalice/sierra/dealer
                 icon: icon-flag
-            cars:
-                label: Carros
-                url: andresalice/sierra/car
-                icon: icon-car

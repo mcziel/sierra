@@ -1,6 +1,7 @@
 columns:
     make_name:
         label: MARCA
+        type: text
     model_name:
         label: MODELO
         type: text
@@ -8,7 +9,12 @@ columns:
         sortable: true
         select: name
         relation: model
-    dealer_id:
+    submodel:
+        label: SUBMODELO
+        type: text
+        searchable: true
+        sortable: true
+    dealer_name:
         label: DEALER
         type: text
         searchable: true
@@ -20,4 +26,3 @@ columns:
         type: text
         searchable: true
         sortable: true
-

@@ -11,50 +11,68 @@ use Andresalice\Sierra\Models\Modelc;
 function onStart()
 {
     $this['params'] = get();
-    $this['cars'] = Car::get();
-    $this['makes'] = Make::get();
-    $this['models'] = Modelc::where("make_id",$this['params']['make'])->get();
-    //*****************************************************************SEARCH*****************************************************************
-    if(Input::has("search"))
+    if($this['params'])
     {
-        $search = get("search");
-        $search = explode(" ", $search);
-        $this['cars'] = Car::where(function($query) use ($search){
-            foreach($search as $s){if($s){$query->orWhere("title", "LIKE", "%" . $s . "%");}}  
-        })->get();
-    }
-    //************************************************************SEARCH ADVANCED*************************************************************
-    if(Input::has("search_advanced"))
-    {
-        $type = get("type");
-        $make = get("make");
-        $model = get("model");
-        $status = get("status");
-        $desde = get("desde");
-        $hasta = get("hasta");
-        $moneda = get("moneda");
-        $desde_ano = get("desde_ano");
-        $hasta_ano = get("hasta_ano");
-        $gas = get("gas");
-        $ordenar = "ASC";
-        if($moneda == 2)
+        $this['cars'] = Car::paginate(12);
+        $this['makes'] = Make::get();
+        if(!empty($this['params']['make']))
         {
-            $desde = Currency::format(get("desde"), ['from' => 'USD', 'to' => 'DOP']);
-            $hasta = Currency::format(get("hasta"), ['from' => 'USD', 'to' => 'DOP']);
+            $this['models'] = Modelc::where("make_id",$this['params']['make'])->get();
         }
-        else
+        //*****************************************************************SEARCH*****************************************************************
+        if(Input::has("search"))
         {
+            $search = get("search");
+            $search = explode(" ", $search);
+            $this['cars'] = Car::where(function($query) use ($search){
+                foreach($search as $s){if($s){$query->orWhere("title", "LIKE", "%" . $s . "%");}}  
+            })->get();
+        }
+        //************************************************************SEARCH ADVANCED*************************************************************
+        if(Input::has("search_advanced"))
+        {
+            $type = get("type");
+            $make = get("make");
+            $model = get("model");
+            $status = get("status");
             $desde = get("desde");
             $hasta = get("hasta");
+            $moneda = get("moneda");
+            $desde_ano = get("desde_ano");
+            $hasta_ano = get("hasta_ano");
+            $gas = get("gas");
+            $ordenar = get("orderBy");
+            if($ordenar == "CREATED_AT"){$field = "created_at";}else{$field = "price";}
+            if($moneda == 2)
+            {
+                $desde = floor(Currency::format(get("desde"), ['from' => 'USD', 'to' => 'DOP']));
+                $hasta = floor(Currency::format(get("hasta"), ['from' => 'USD', 'to' => 'DOP']));
+            }
+            else
+            {
+                $desde = get("desde");
+                $hasta = get("hasta");
+            }
+        	$query = 
+        	
+        	Car::where(function($query) use ($type, $make, $model, $status, $desde, $hasta, $moneda, $gas, $desde_ano, $hasta_ano)
+        	{
+        	    if($model){$query->orWhere("model_id","LIKE", "%" . $model . "%");}
+        		if($type){$query->orWhere("type","=",$type);}
+        		if($status){$query->orWhere("status","=",$status);}
+        		if($gas){$query->orWhere("gas","=",$gas);}
+        		if($desde_ano){$query->where("year",">=",$desde_ano);}
+    			if($hasta_ano){$query->where("year","<=",$hasta_ano);}
+    			if($desde){$query->where("price",">=",$desde);}
+    			if($hasta){$query->where("price","<=",$hasta);}
+        	})->orderBy($field, $ordenar)->paginate(12);
+        	$this['cars'] = $query;
         }
-    	$query = Car::where("model_id","=",$model)->where(function($query) use ($type, $make, $model, $status, $desde, $hasta, $moneda, $gas){
-    		if($type){$query->orWhere("type","=",$type);}
-    		if($status){$query->orWhere("status","=",$status);}
-    		if($gas){$query->orWhere("gas","=",$gas);}
-    	})->where(function($query) use ($desde, $hasta, $moneda) {
-			if($desde){$query->where("price",">=",$desde);}
-			if($hasta){$query->where("price","<=",$hasta);}
-    	})->orderBy("price", $ordenar)->paginate(4);
+    }
+    else
+    {
+        $this['cars'] = Car::paginate(12);
+        $this['makes'] = Make::get();
     }
 }
 
@@ -70,30 +88,32 @@ function onGetModels()
 		<div class="row">
             <div class="col-lg-3 col-xs-12">
                 <div class="b-infoBar__compare">
-                    <a href="{{"compare"|page}}" class="b-infoBar__compare-item"><span class="fa fa-search"></span>VEHICULOS ENCONTRADOS: {{cars.count()}}</a>
+                    <a href="{{"compare"|page}}" class="b-infoBar__compare-item"><span class="fa fa-search"></span>VEHÍCULOS ENCONTRADOS: {{cars.count()}}</a>
                 </div>
             </div>
 			<div class="col-lg-9 col-xs-12">
 				<div class="b-infoBar__select">
 					<form method="post" action="/">
-						<div class="b-infoBar__select-one">
-							<span class="b-infoBar__select-one-title">VISTA</span>
-							<a id="VistaLista" href="#" class="m-list"><span class="fa fa-list"></span></a>
-							<a id="vistaTabla" href="#" class="m-table m-active"><span class="fa fa-table"></span></a>
-						</div>
-						<div class="b-infoBar__select-one">
-							<span class="b-infoBar__select-one-title">MOSTRAR EN UNA PAGINA</span>
-							<select name="select1" class="m-select">
-								<option value="" selected="">10 vehiculos</option>
-							</select>
-							<span class="fa fa-caret-down"></span>
-						</div>
+						<!-- <div class="b-infoBar__select-one">
+						    <span class="b-infoBar__select-one-title">VISTA</span>
+						    <a id="VistaLista" href="#" class="m-list"><span class="fa fa-list"></span></a>
+						    <a id="vistaTabla" href="#" class="m-table m-active"><span class="fa fa-table"></span></a>
+						</div> -->
+						<!-- <div class="b-infoBar__select-one">
+						    <span class="b-infoBar__select-one-title">MOSTRAR EN UNA PAGINA</span>
+						    <select name="select1" class="m-select">
+						        <option value="12">12 VEHÍCULOS</option>
+						        <option value="24">24 VEHÍCULOS</option>
+						        <option value="36">36 VEHÍCULOS</option>
+						    </select>
+						    <span class="fa fa-caret-down"></span>
+						</div> -->
 						<div class="b-infoBar__select-one" >
 							<span class="b-infoBar__select-one-title">ORDENAR POR</span>
-							<select name="select2" class="m-select" style="width: 200px;">
-                                <option value="" selected="">Mas recientes</option>
-                                <option value="" selected="">Precio de mayor a menor</option>
-                                <option value="" selected="">Precio de menor a mayor</option>
+							<select name="ordenar" id="orderBy" class="m-select" style="width: 200px;">
+                                <option {% if params.orderBy == 'CREATED_AT' %}selected{% endif%} value="CREATED_AT">Más recientes</option>
+                                <option {% if params.orderBy == 'DESC' %}selected{% endif%} value="DESC">Precio de mayor a menor</option>
+                                <option {% if params.orderBy == 'ASC' %}selected{% endif%} value="ASC">Precio de menor a mayor</option>
 							</select>
 							<span class="fa fa-caret-down"></span>
 						</div>
@@ -111,8 +131,9 @@ function onGetModels()
 				<aside class="b-items__aside">
 					<h2 class="s-title">FILTRA TU BUSQUEDA</h2>
 					<div class="b-items__aside-main">
-						{{ form_open({ url:'listado', request: 'onSearchAdvanced', method: 'GET' }) }}
+						{{ form_open({ url:'listado', request: 'onSearchAdvanced', id: 'listForm', method: 'GET' }) }}
 						<input type="hidden" name="search_advanced" value="1">
+						<input type="hidden" name="orderBy">
 							<div class="b-items__aside-main-body">
 								<div class="b-items__aside-main-body-item">
 									<label>MARCA</label>
@@ -145,21 +166,40 @@ function onGetModels()
                                 </div>
 								<div class="b-items__aside-main-body-item">
 									<label>PRECIO</label>
-									<!-- <div class="slider"></div>
-									<input type="hidden" name="min" value="100" class="j-min" />
-									<input type="hidden" name="max" value="1000" class="j-max" /> -->
-									<div class="col-xs-12">
-            							<select id="desde" name="desde">
+									<div style="margin-bottom:4px">
+            							<select id="desde" name="desde"  class="m-select">
             								<option value="0" >Desde</option>
             							</select>
             							<span class="fa fa-caret-down"></span>
             						</div>
-            						<div class="col-xs-12">
-            							<select id="hasta" name="hasta">
-            								<option value="0" >Hasta</option>
+                                    <div>
+                                        <select id="hasta" name="hasta"  class="m-select">
+                                            <option value="0" >Hasta</option>
+                                        </select>
+                                        <span class="fa fa-caret-down"></span>
+                                    </div>
+								</div>
+								
+								<div class="b-items__aside-main-body-item">
+									<label>AÑO</label>
+									<div style="margin-bottom:4px">
+            							<select id="desde" name="desde_ano"  class="m-select">
+            								<option value="0" >Desde</option>
+            								{% for i in 2018..1975 %}
+                                                <option value="{{i}}" >{{i}}</option>
+                                            {% endfor %}
             							</select>
             							<span class="fa fa-caret-down"></span>
             						</div>
+                                    <div>
+                                        <select id="hasta" name="hasta_ano"  class="m-select">
+                                            <option value="0" >Hasta</option>
+                                            {% for i in 2018..1975 %}
+                                                <option value="{{i}}" >{{i}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <span class="fa fa-caret-down"></span>
+                                    </div>
 								</div>
 								<div class="b-items__aside-main-body-item">
 									<label>TIPO</label>
@@ -216,35 +256,38 @@ function onGetModels()
             						<img  class="miniatura" src="{{car.featured_image.getPath}}" alt="{{car.model.name}}" />
             					</a>
             					<div class="b-featured__item-price">
-            						RD${{ car.price|number_format() }}
+            						{% if car.currency == 0 %}RD${% else %}US${% endif %}{{ car.price|number_format() }}
             					</div>
             					<div class="clearfix"></div>
-            					<h5><a href="{{"detail"|page}}">{{car.model.maker.name}} {{car.model.name}} {{car.year}}</a></h5>
-            					<div class="b-featured__item-count"><span class="fa fa-tachometer"></span>{{car.kilometers}} KM</div>
+            					<h5><a href="{{"detail"|page}}">{{car.model.maker.name}} {{car.model.name}} {{car.submodel}} {{car.year}}</a></h5>
+            					<div class="b-featured__item-count"><span class="fa fa-tachometer"></span>{{ car.kilometers|number_format() }} {% if car.odometro == 0 %}KM{% else %}MI{% endif %}</div>
             					<div class="b-featured__item-links">
             						<a href="javascript:;">{{car.status}}</a>
             						<a href="javascript:;">{{car.year}}</a>
-            						<a href="javascript:;">{{car.tranmision}}</a>
-            						<a href="javascript:;">{{car.color}}</a>
+            						<a href="javascript:;">{{car.transmision}}</a>
+            						<a href="javascript:;">{{car.exterior}}</a>
             						<a href="javascript:;">{{car.gas}}</a>
             					</div>
             				</div>
                         </div>
                     {% endfor %}
+                    {% if cars|length < 1 %}
+                        <img class="img-responsive center-block" src="{{"assets/images/no-busqueda.png"|theme}}"/>
+                    {% endif %}
                 </div>
 		    </div>
 
-			<!-- <div class="b-items__pagination">
+			<div class="b-items__pagination">
 			    <div class="b-items__pagination-main">
-			        <a data-toggle="modal" data-target="#myModal" href="#" class="m-left"><span class="fa fa-angle-left"></span></a>
-			        <span class="m-active"><a href="#">1</a></span>
-			        <span><a href="#">2</a></span>
-			        <span><a href="#">3</a></span>
-			        <span><a href="#">4</a></span>
-			        <a href="#" class="m-right"><span class="fa fa-angle-right"></span></a>  
+<!-- <a data-toggle="modal" data-target="#myModal" href="#" class="m-left"><span class="fa fa-angle-left"></span></a>
+<span class="m-active"><a href="#">1</a></span>
+<span><a href="#">2</a></span>
+<span><a href="#">3</a></span>
+<span><a href="#">4</a></span>
+<a href="#" class="m-right"><span class="fa fa-angle-right"></span></a> -->
 			        {{ cars.render|raw }}
 			    </div>
-			</div> -->
+			</div>
 		</div>
 		</div>
 	</div>
@@ -259,6 +302,13 @@ function onGetModels()
             $("#hasta").val("{{params.hasta}}");
             $("#modelc").val("{{params.model}}"); 
         }, 1000);  
+        
+        $('#orderBy').on('change', function() {
+              $("input[name=orderBy]").val(this.value);
+              $("#listForm").submit();
+        })
     });
+    
+    
 </script>
 {% endput %}

@@ -10,24 +10,66 @@ is_hidden = 0
 				<h2 class="s-titleDet">CALCULADORA DE CUOTAS</h2>
 				<div class="b-detail__main-aside-payment-form">
 					<form action="/" method="post">
-						<input type="text" placeholder="MONTO DEL PRESTAMO EN RD$" value="" name="name" />
-						<input type="text" placeholder="PAGO INICIAL" value="" name="name" />
-						<div class="s-relative">
-							<select name="select" class="m-select">
-								<option value="">PLAZO EN MESES</option>
-							</select>
-							<span class="fa fa-caret-down"></span>
-						</div>
-						<input type="text" placeholder="TASA DE INTERES EN %" value="" name="name" />
-						<button type="submit" class="btn m-btn">ESTIMAR PAGOS<span class="fa fa-angle-right"></span></button>
-					</form>
+								    
+								    <div class="form-group">
+								      <label>MONTO DEL PRESTAMOS</label>    
+									  <input class="auto-num" type="text" placeholder="400,000" value="" name="price_hidden" />
+								    </div>
+								    <div class="form-group">
+								      <label>INICIAL</label>    
+									  <input class="auto-num" type="text" placeholder="100,000" value="" name="inicial" />
+								    </div>
+						
+								
+									<div class="s-relative">
+    								   <div class="form-group">
+    								      <label>PLAZOS</label>    
+    									  <input type="text" placeholder="1 año" value="" name="plazo" />
+    								    </div>
+						
+									</div>
+									<div class="s-relative">
+									<div class="form-group">
+								      <label>TASA</label>    
+									  <input type="text" placeholder="10%" value="" name="tasa" />
+								    </div>    
+				
+            						</div>
+									<button onClick="recalcLoan();" type="button" class="btn m-btn">ESTIMAR PAGOS<span class="fa fa-angle-right"></span></button>
+								</form>
 				</div>
-				<div class=" col-md-6 b-detail__main-aside-about-call">
+				<div class="b-detail__main-aside-about-call">
 					<span class="fa fa-calculator"></span>
-					<div>RD $2,500 <p>POR MES</p></div>
-					<p>TOTAL DE CUOTAS: <span>50</span></p>
+					<div id="cuotaMensual">RD $2,500 <p>POR MES</p></div>
+					<p>TOTAL DE CUOTAS: <span id="totalCuotas">50</span></p>
 				</div>
 			</div>
 		</aside>
 	</div>
 </section><!--b-more-->
+{% put scripts %}
+<script>
+    $(document).ready(function(){
+        $('.auto-num').mask("#,##0", {reverse: true}); 
+        recalcLoan();
+    });
+    
+	function recalcLoan()
+	{
+		var dp = $('input[name=inicial]').cleanVal();
+		var bank = $('input[name=tasa]').val();
+		var years = $('input[name=plazo]').val();
+		var price = $('input[name=price_hidden]').cleanVal();
+		var capital = price - dp;
+		//var capital = price - (price * dp / 100);
+		var interest = bank / 12;
+		var monthly = (capital * interest) / (100 * (1 - Math.pow((1 + (interest / 100)), -(years * 12))));
+		var minterest = capital * (bank / 1200);
+		var capital2 = $.number(capital, 2);
+		var monthly2 = $.number(monthly, 2);
+		//$('#capital').html("$"+capital2);
+		$('#cuotaMensual').html("RD$"+monthly2);
+		$('#totalCuotas').html(years*12);
+	}
+</script>
+{% endput %}

@@ -1803,3 +1803,8 @@ a.m-langLink{
 .b-footer__content-nav ul li a{
     font: 400 12px 'Open Sans',sans-serif;
 }
+@media (min-width: 800px) {
+     .b-topBar {
+    display: none;
+  }
+}

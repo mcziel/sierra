@@ -39,3 +39,12 @@
 1.0.14:
     - 'Created table andresalice_sierra_compares'
     - builder_table_create_andresalice_sierra_compares.php
+1.0.15:
+    - 'Updated table andresalice_sierra_cars'
+    - builder_table_update_andresalice_sierra_cars_9.php
+1.0.16:
+    - 'Updated table andresalice_sierra_cars'
+    - builder_table_update_andresalice_sierra_cars_10.php
+1.0.17:
+    - 'Updated table andresalice_sierra_cars'
+    - builder_table_update_andresalice_sierra_cars_11.php

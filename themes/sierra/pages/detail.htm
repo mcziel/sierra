@@ -8,7 +8,7 @@ use Andresalice\Sierra\Models\Car;
 
 function onStart()
 {
-    $this['cars'] = Car::take(3)->get();
+    $this['cars'] = Car::where("id","!=",$this->param("id"))->take(4)->get();
     $this['car'] = Car::find($this->param("id"));
     $porcentajes = array(10,20,30,40,50,60,70,80,90);
 	$p = array();
@@ -39,12 +39,12 @@ function onStart()
 			<div class="row">
 				<div class="col-sm-8 col-xs-12">
 					<div class="b-detail__head-title">
-						<h1>{{car.model.maker.name}} {{car.model.name}} {{car.year}}</h1>
+						<h1>{{car.model.maker.name}} {{car.model.name}} {{car.submodel}} {{car.year}}</h1>
 					</div>
 				</div>
 				<div class="col-sm-4 col-xs-12">
-					<div class="b-detail__head-price">
-						<div class="b-detail__head-price-num">RD${{ car.price|number_format() }}</div>
+					<div class="b-detail__head-price" style:"text-align:center;">
+						<div class="b-detail__head-price-num" style:"display: inline-block;">{% if car.currency == 0 %}RD${% else %}US${% endif %}{{ car.price|number_format() }}</div>
 					</div>
 				</div>
 			</div>
@@ -59,7 +59,7 @@ function onStart()
 									<ul class="b-detail__main-info-images-big bxslider enable-bx-slider" data-pager-custom="#bx-pager" data-mode="horizontal" data-pager-slide="true" data-mode-pager="vertical" data-pager-qty="5">
 									    {% for image in car.images %}
     										<li class="s-relative">                                        
-    											<img class="img-responsive center-block" src="{{image.getPath}}"  alt="nissan" />
+    											<img class="img-responsive center-block" src="{{image.thumb(600, 600)}}"  alt="nissan" />
     										</li>
     									{% endfor %}
 									</ul>
@@ -68,7 +68,7 @@ function onStart()
 									<div class="b-detail__main-info-images-small" id="bx-pager">
 									    {% for image in car.images %}
     										<a href="#" data-slide-index="{{loop.index - 1}}" class="b-detail__main-info-images-small-one">
-    											<img class="img-responsive" src="{{image.getPath}}"  alt="nissan" />
+    											<img class="img-responsive" src="{{image.thumb(400, 400)}}"  alt="nissan" />
     										</a>
 										{% endfor %}
 										
@@ -115,10 +115,10 @@ function onStart()
 							</div>
 							<div class="row">
 								<div class="col-xs-6">
-									<h4 class="b-detail__main-aside-desc-title">Kilometraje</h4>
+									<h4 class="b-detail__main-aside-desc-title">Odómetro</h4>
 								</div>
 								<div class="col-xs-6">
-									<p class="b-detail__main-aside-desc-value">{{car.kilometers}} km</p>
+									<p class="b-detail__main-aside-desc-value">{{ car.kilometers|number_format() }} {% if car.odometro == 0 %}KM{% else %}MI{% endif %}</p>
 								</div>
 							</div>
 							<div class="row">
@@ -131,7 +131,7 @@ function onStart()
 							</div>
 							<div class="row">
 								<div class="col-xs-6">
-									<h4 class="b-detail__main-aside-desc-title">Motorr</h4>
+									<h4 class="b-detail__main-aside-desc-title">Motor</h4>
 								</div>
 								<div class="col-xs-6">
 									<p class="b-detail__main-aside-desc-value">{{car.motor}}</p>
@@ -182,7 +182,7 @@ function onStart()
 							<h2 class="s-titleDet">CONTACTA AL VENDEDOR</h2>
 							<div class="b-detail__main-aside-about-call">
 								<span class="fa fa-phone"></span>
-								<div>(809)-375-4027</div>
+								<div><a style="text-decoration:none;" href="tel:{{car.dealer.phone}}">{{car.dealer.phone}}</a></div>
 								<p>Llámanos y recibe informacion sobre este vehículo.</p>
 							</div>
 							<div class="b-detail__main-aside-about-seller">
@@ -205,37 +205,30 @@ function onStart()
 							<h2 class="s-titleDet">CALCULADORA DE CUOTAS</h2>
 							<div class="b-detail__main-aside-payment-form">
 								<form action="/" method="post">
-									<!-- <input type="text" placeholder="MONTO DEL PRESTAMO EN RD$" value="" name="argarg" /> -->
+								    
+								    <div class="form-group">
+								      <label>MONTO DEL PRESTAMOS</label>    
+									  <input class="auto-num" type="text" placeholder="400,000" value="" name="price_hidden" />
+								    </div>
+								    <div class="form-group">
+								      <label>INICIAL</label>    
+									  <input class="auto-num" type="text" placeholder="100,000" value="" name="inicial" />
+								    </div>
+						
+								
 									<div class="s-relative">
-									<select name="inicial" class="m-select">
-            							{% for key, p in porcentaje %}
-            								<option value="{{key}}">{{key}}% - RD${{p|number_format}}</option>
-            							{% endfor %}
-            						</select>
-            						<span class="fa fa-caret-down"></span>
-            						</div>
-									<input type="hidden" value="{{car.price}}" name="price_hidden">
-									<div class="s-relative">
-										<select name="plazo" class="m-select">
-											<option value="1">1 Año</option>
-                							<option value="2">2 Años</option>
-                							<option value="3">3 Años</option>
-                							<option value="4">4 Años</option>
-                							<option value="5">5 Años</option>
-                							<option value="6">6 Años</option>
-                							<option value="7">7 Años</option>
-                							<option value="8">8 Años</option>
-										</select>
-										<span class="fa fa-caret-down"></span>
+    								   <div class="form-group">
+    								      <label>PLAZOS</label>    
+    									  <input type="text" placeholder="1 año" value="" name="plazo" />
+    								    </div>
+						
 									</div>
 									<div class="s-relative">
-									<select name="tasa" class="m-select">
-            							<option value="7.95">7.95% - Fija por 6 meses</option>
-            							<option value="8.95">8.95% - Fija por 1 año</option>
-            							<option value="10.95">10.95% - Fija por 3 años</option>
-            							<option value="13.95">13.95% - Fija por 5 años</option>
-            						</select>
-            						<span class="fa fa-caret-down"></span>
+									<div class="form-group">
+								      <label>TASA</label>    
+									  <input type="text" placeholder="10%" value="" name="tasa" />
+								    </div>    
+				
             						</div>
 									<button onClick="recalcLoan();" type="button" class="btn m-btn">ESTIMAR PAGOS<span class="fa fa-angle-right"></span></button>
 								</form>
@@ -243,7 +236,7 @@ function onStart()
 							<div class="b-detail__main-aside-about-call">
 								<span class="fa fa-calculator"></span>
 								<div id="cuotaMensual">RD $2,500 <p>POR MES</p></div>
-								<p>TOTAL DE CUOTAS: <span>50</span></p>
+								<p>TOTAL DE CUOTAS: <span id="totalCuotas">50</span></p>
 							</div>
 						</div>
 					</aside>
@@ -262,21 +255,21 @@ function onStart()
 		    {% for c in cars %}
             <div class="col-xs-12 col-md-3">
             	<div class="b-featured__item ">
-            		<a href="{{"detail"|page({id: car.id})}}">
-            			<img  class="miniatura" src="{{car.featured_image.getPath}}" alt="{{car.model.name}}" />
+            		<a href="{{"detail"|page({id: c.id})}}">
+            			<img  class="miniatura" src="{{c.featured_image.thumb(400,400)}}" alt="{{c.model.name}}" />
             		</a>
             		<div class="b-featured__item-price">
-            			RD${{ car.price|number_format() }}
+            			{% if car.currency == 0 %}RD${% else %}US${% endif %}{{ car.price|number_format() }}
             		</div>
             		<div class="clearfix"></div>
-            		<h5><a href="{{"detail"|page}}">{{car.model.maker.name}} {{car.model.name}} {{car.year}}</a></h5>
-            		<div class="b-featured__item-count"><span class="fa fa-tachometer"></span>{{car.kilometers}} KM</div>
+            		<h5><a href="{{"detail"|page}}">{{car.model.maker.name}} {{car.model.name}} {{car.submodel}} {{car.year}}</a></h5>
+            		<div class="b-featured__item-count"><span class="fa fa-tachometer"></span>{{ c.kilometers|number_format() }} {% if c.odometro == 0 %}KM{% else %}MI{% endif %}</div>
             		<div class="b-featured__item-links">
-            			<a href="javascript:;">{{car.status}}</a>
-            			<a href="javascript:;">{{car.year}}</a>
-            			<a href="javascript:;">{{car.tranmision}}</a>
-            			<a href="javascript:;">{{car.color}}</a>
-            			<a href="javascript:;">{{car.gas}}</a>
+            			<a href="javascript:;">{{c.status}}</a>
+            			<a href="javascript:;">{{c.year}}</a>
+            			<a href="javascript:;">{{c.transmision}}</a>
+            			<a href="javascript:;">{{c.exterior}}</a>
+            			<a href="javascript:;">{{c.gas}}</a>
             		</div>
             	</div>
             </div>
@@ -286,15 +279,19 @@ function onStart()
 </section><!--"b-related-->
 {% put scripts %}
 <script>
-	recalcLoan();
-		
+    $(document).ready(function(){
+        $('.auto-num').mask("#,##0", {reverse: true}); 
+        recalcLoan();
+    });
+    
 	function recalcLoan()
 	{
-		var dp = $('select[name=inicial]').val();
-		var bank = $('select[name=tasa]').val();
-		var years = $('select[name=plazo]').val();
-		var price = $('input[name=price_hidden]').val();
-		var capital = price - (price * dp / 100);
+		var dp = $('input[name=inicial]').cleanVal();
+		var bank = $('input[name=tasa]').val();
+		var years = $('input[name=plazo]').val();
+		var price = $('input[name=price_hidden]').cleanVal();
+		var capital = price - dp;
+		//var capital = price - (price * dp / 100);
 		var interest = bank / 12;
 		var monthly = (capital * interest) / (100 * (1 - Math.pow((1 + (interest / 100)), -(years * 12))));
 		var minterest = capital * (bank / 1200);
@@ -302,7 +299,7 @@ function onStart()
 		var monthly2 = $.number(monthly, 2);
 		//$('#capital').html("$"+capital2);
 		$('#cuotaMensual').html("RD$"+monthly2);
-		
+		$('#totalCuotas').html(years*12);
 	}
 </script>
 {% endput %}

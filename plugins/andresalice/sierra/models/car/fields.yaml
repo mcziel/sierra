@@ -21,22 +21,31 @@ fields:
         descriptionFrom: description
         span: auto
         type: relation
-    kilometers:
-        label: KILOMETRAJE
-        oc.commentPosition: ''
-        span: auto
-        type: text
     type:
         label: Tipo
         oc.commentPosition: ''
         span: auto
         type: dropdown
         options: listType
+    submodel:
+        label: SUBMODELO
+        oc.commentPosition: ''
+        span: auto
+        type: text
     motor:
         label: MOTOR
         oc.commentPosition: ''
         span: auto
         type: text
+    kilometers:
+        label: ODÓMETRO​
+        oc.commentPosition: ''
+        span: auto
+        type: text
+    odometro:
+        label: 'ACTIVAR PARA MILLAS'
+        span: auto
+        type: switch
     gas:
         label: COMBUSTIBLE
         oc.commentPosition: ''
@@ -44,7 +53,7 @@ fields:
         type: dropdown
         options: listGas
     exterior:
-        label: EXTERIOR
+        label: 'COLOR EXTERIOR'
         oc.commentPosition: ''
         span: auto
         type: text
@@ -55,12 +64,12 @@ fields:
         type: dropdown
         options: listTransmisions
     interior:
-        label: INTERIOR
+        label: 'COLOR INTERIOR'
         oc.commentPosition: ''
         span: auto
         type: text
     traction:
-        label: TRANSMISION
+        label: TRACCIÓN​
         oc.commentPosition: ''
         span: auto
         type: dropdown
@@ -70,23 +79,22 @@ fields:
         oc.commentPosition: ''
         span: auto
         type: text
-    doors:
-        label: PUERTAS
-        oc.commentPosition: ''
-        span: auto
-        type: text
     price:
         label: PRECIO
         oc.commentPosition: ''
         span: auto
         type: text
-    year:
-        label: AÑO
+    currency:
+        label: 'ACTIVAR PARA PRECIO EN DOLARES'
+        span: auto
+        type: switch
+    doors:
+        label: PUERTAS
         oc.commentPosition: ''
         span: auto
         type: text
-    color:
-        label: COLOR
+    year:
+        label: AÑO
         oc.commentPosition: ''
         span: auto
         type: text
