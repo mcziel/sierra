@@ -10,7 +10,7 @@ use Andresalice\Sierra\Models\Modelc;
 
 function onStart()
 {
-    $this['cars'] = Car::take(8)->get();
+    $this['cars'] = Car::orderBy("id","DESCs")->take(8)->get();
     $this['makes'] = Make::get();
     $this['models'] = Modelc::where("make_id",1)->get();
 }
@@ -25,7 +25,7 @@ function onGetModels()
 <section> 
 	<div class="carousel-inner">
 		<div class="item active">
-			<img src="http://via.placeholder.com/2400x700" alt="sliderImg" />
+			<img src="{{"assets/images/carro.png"|theme}}" />
 			<div class="container">
 				<div class="carousel-caption b-slider__info">
 					<h3>Encuentra el vehículo de tus sueños</h3>
@@ -209,10 +209,10 @@ function onGetModels()
     						<img  class="miniatura" src="{{car.featured_image.thumb(400,400)}}" alt="{{car.model.name}}" />
     					</a>
     					<div class="b-featured__item-price">
-    						{% if car.currency == 0 %}RD${% else %}US${% endif %}{{ car.price|number_format() }}
+    						{% if car.currency == 0 %}RD${{ car.price|number_format() }}{% else %}US${{ car.price_us|number_format() }}{% endif %}
     					</div>
     					<div class="clearfix"></div>
-    					<h5><a href="{{"detail"|page}}">{{car.model.maker.name}} {{car.model.name}} {{car.submodel}} {{car.year}}</a></h5>
+    					<h5><a href="{{"detail"|page({id: car.id})}}">{{car.model.maker.name}} {{car.model.name}} {{car.submodel}} {{car.year}}</a></h5>
     					<div class="b-featured__item-count"><span class="fa fa-tachometer"></span>{{ car.kilometers|number_format() }} {% if car.odometro == 0 %}KM{% else %}MI{% endif %}</div>
     					<div class="b-featured__item-links">
     						<a href="javascript:;">{{car.status}}</a>

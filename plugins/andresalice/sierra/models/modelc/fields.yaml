@@ -1,6 +1,13 @@
 fields:
-    id:
-        label: ID
+    name:
+        label: 'NOMBRE MODELO'
         oc.commentPosition: ''
         span: auto
         type: text
+    maker:
+        label: MARCA
+        oc.commentPosition: ''
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation

@@ -29,17 +29,26 @@ function onContactForm()
 		<script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
+<style>
+    @media screen and (max-width:767px){
+    
+     header{
+    display: none;
+     }
+    }
+</style>
 	</head>
+
 	<body class="m-index" data-scrolling-animations="true" data-equal-height=".b-auto__main-item">
 
 		<!-- Loader -->
 		<div id="page-preloader"><span class="spinner"></span></div>
 		<!-- Loader end -->
-				<header class="b-topBar">
+		<header class="b-topBar">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-4 col-xs-6">
-						<div class="b-topBar__addr"  style="text-transform: lowercase;">
+						<div class="b-topBar__addr">
 							<span class="fa fa-map-marker"></span>
 							Sierra Motors, Carr. Sanchez, 91000
 						</div>
@@ -51,9 +60,9 @@ function onContactForm()
 						</div>
 					</div>
 					<div class="col-md-3 col-xs-6">
-						<div class="b-topBar__tel" style="text-transform: lowercase;">
+						<div class="b-topBar__tel" style="text-transform: lowercase; ">
 							<span class="fa fa-envelope"></span>
-							sierramotors.sc@gmail.com
+						   <a href="mailto:sierramotors.sc@gmail.com" style="text-decoration:none; color:black" >sierramotors.sc@gmail.com</a>
 						</div>
 					</div>
 					<div class="col-md-2 col-xs-6">
@@ -88,8 +97,10 @@ function onContactForm()
 							<div style="padding-top: 20px" class="collapse navbar-collapse navbar-main-slide" id="nav">
 								<ul class="navbar-nav-menu">
 								    <li><a href="{{"about"|page}}">Sobre nosotros</a></li>
+								    <li><a href="{{"listings"|page}}">vehículos</a></li>
 									<li><a href="{{"compare"|page}}">Comparar vehículos</a></li>
 									<li><a href="{{"contacts"|page}}">Contacto</a></li>
+									<li><a href="{{"contacts"|page}}" style="color:#DF2213;">Publique su vehículo con nosotros</a></li>
 								</ul>
 							</div>
 						</div>
@@ -106,7 +117,7 @@ function onContactForm()
 					<div class="col-md-9 col-md-offset-3 col-xs-6 col-xs-offset-6">
 						<ul class="b-features__items">
 							<li><a href="{{"calculator"|page}}"> Calculadora de prestamos</a></li>
-							<li><a href="{{"compare"|page}}">Comparar vehiculos</a></li>
+							<li><a href="{{"compare"|page}}">Comparar vehículos</a></li>
 						</ul>
 					</div>
 				</div>
@@ -136,12 +147,12 @@ function onContactForm()
 								<p>Líder en la comercialización de vehículos de motor nuevos y usados en todas las marcas y
                                     modelos en la provincia de San Cristóbal.</p>
 							</article>
-							<a href="{{"about"|page}}" class="btn m-btn">Ver mas<span class="fa fa-angle-right"></span></a>
+							<a href="{{"about"|page}}" class="btn m-btn">Ver más<span class="fa fa-angle-right"></span></a>
 						</aside>
 					</div>
 					<div class="col-md-9 col-xs-6">
 						<address class="b-info__contacts">
-							<p>contactanos</p>
+							<p>contáctanos</p>
 							<div class="b-info__contacts-item">
 								<span class="fa fa-map-marker"></span>
 								<em>Sierra Motors, Carr. Sanchez, 91000, Republica Dominicana</em>

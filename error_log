@@ -2,3 +2,4 @@
 [21-Sep-2017 16:00:43 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in phar:///usr/local/bin/composer/vendor/symfony/process/Process.php on line 289
 [21-Sep-2017 16:02:11 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in phar:///usr/local/bin/composer/vendor/symfony/process/Process.php on line 289
 [21-Sep-2017 21:05:28 UTC] PHP Fatal error:  Method name must be a string in /home/kationdev/public_html/dev/sierra/vendor/twig/twig/lib/Twig/Template.php on line 675
+[03-Oct-2017 15:06:41 UTC] PHP Fatal error:  Class 'Andresalice\Sierra\Models\Currency' not found in /home/kationdev/public_html/dev/sierra/plugins/andresalice/sierra/models/Car.php on line 46

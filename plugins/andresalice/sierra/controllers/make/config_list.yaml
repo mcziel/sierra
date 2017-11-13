@@ -1,11 +1,12 @@
-list: $/andresalice/sierra/models/make/columns.yaml
-modelClass: Andresalice\Sierra\Models\Make
 title: Make
+modelClass: Andresalice\Sierra\Models\Make
+list: $/andresalice/sierra/models/make/columns.yaml
+recordUrl: 'andresalice/sierra/make/update/:id'
 noRecordsMessage: 'backend::lang.list.no_records'
+recordsPerPage: '40'
 showSetup: true
 showCheckboxes: true
 toolbar:
     buttons: list_toolbar
     search:
         prompt: 'backend::lang.list.search_prompt'
-recordUrl: 'andresalice/sierra/make/update/:id'

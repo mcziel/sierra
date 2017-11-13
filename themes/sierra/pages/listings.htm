@@ -13,7 +13,7 @@ function onStart()
     $this['params'] = get();
     if($this['params'])
     {
-        $this['cars'] = Car::paginate(12);
+        $this['cars'] = Car::paginate(9);
         $this['makes'] = Make::get();
         if(!empty($this['params']['make']))
         {
@@ -43,7 +43,7 @@ function onStart()
             $gas = get("gas");
             $ordenar = get("orderBy");
             if($ordenar == "CREATED_AT"){$field = "created_at";}else{$field = "price";}
-            if($moneda == 2)
+            /*if($moneda == 2)
             {
                 $desde = floor(Currency::format(get("desde"), ['from' => 'USD', 'to' => 'DOP']));
                 $hasta = floor(Currency::format(get("hasta"), ['from' => 'USD', 'to' => 'DOP']));
@@ -52,26 +52,36 @@ function onStart()
             {
                 $desde = get("desde");
                 $hasta = get("hasta");
-            }
+            }*/
         	$query = 
         	
-        	Car::where(function($query) use ($type, $make, $model, $status, $desde, $hasta, $moneda, $gas, $desde_ano, $hasta_ano)
+        	Car::select("andresalice_sierra_cars.*", "andresalice_sierra_carmodels.make_id")->join("andresalice_sierra_carmodels", "andresalice_sierra_cars.model_id", "=", "andresalice_sierra_carmodels.id")->where(function($query) use ($type, $make, $model, $status, $desde, $hasta, $moneda, $gas, $desde_ano, $hasta_ano, $moneda)
         	{
-        	    if($model){$query->orWhere("model_id","LIKE", "%" . $model . "%");}
-        		if($type){$query->orWhere("type","=",$type);}
-        		if($status){$query->orWhere("status","=",$status);}
-        		if($gas){$query->orWhere("gas","=",$gas);}
+        	    if($make){$query->where("make_id",$make);}
+        	    if($model){$query->where("model_id",$model);}
+        		if($type){$query->where("type","=",$type);}
+        		if($status){$query->where("status","=",$status);}
+        		if($gas){$query->where("gas","=",$gas);}
         		if($desde_ano){$query->where("year",">=",$desde_ano);}
     			if($hasta_ano){$query->where("year","<=",$hasta_ano);}
-    			if($desde){$query->where("price",">=",$desde);}
-    			if($hasta){$query->where("price","<=",$hasta);}
-        	})->orderBy($field, $ordenar)->paginate(12);
+    			if($moneda == 1)
+    			{
+        			if($desde){$query->where("price",">=",$desde);}
+        			if($hasta){$query->where("price","<=",$hasta);}
+    			}
+    			if($moneda == 2)
+    			{
+        			if($desde){$query->where("price_us",">=",$desde);}
+        			if($hasta){$query->where("price_us","<=",$hasta);}
+    			}
+        	})->orderBy($field, $ordenar)->paginate(9);
+        	
         	$this['cars'] = $query;
         }
     }
     else
     {
-        $this['cars'] = Car::paginate(12);
+        $this['cars'] = Car::paginate(9);
         $this['makes'] = Make::get();
     }
 }
@@ -250,17 +260,20 @@ function onGetModels()
 			<div id="tabla" class="col-lg-9 col-sm-8 col-xs-12">
                  <div class="row">
                      {% for car in cars %}
-                        <div class="col-xs-12 col-md-3">
+                        <div class="col-xs-12 col-md-4" style="margin-bottom:20px">
                             <div class="b-featured__item ">
             					<a href="{{"detail"|page({id: car.id})}}">
-            						<img  class="miniatura" src="{{car.featured_image.getPath}}" alt="{{car.model.name}}" />
+            						<img  class="miniatura" src="{{car.featured_image.thumb(600,600)}}" alt="{{car.model.name}}" />
             					</a>
             					<div class="b-featured__item-price">
-            						{% if car.currency == 0 %}RD${% else %}US${% endif %}{{ car.price|number_format() }}
+            						{% if car.currency == 0 %}RD${{ car.price|number_format() }}{% else %}US${{ car.price_us|number_format() }}{% endif %}
             					</div>
             					<div class="clearfix"></div>
-            					<h5><a href="{{"detail"|page}}">{{car.model.maker.name}} {{car.model.name}} {{car.submodel}} {{car.year}}</a></h5>
-            					<div class="b-featured__item-count"><span class="fa fa-tachometer"></span>{{ car.kilometers|number_format() }} {% if car.odometro == 0 %}KM{% else %}MI{% endif %}</div>
+            					<div style="height:70px">
+            					    <h5><a href="{{"detail"|page({id: car.id})}}">{{car.model.maker.name}} {{car.model.name}} {{car.submodel}} {{car.year}}</a></h5>
+            					</div>
+
+            					<div  class="b-featured__item-count"><span class="fa fa-tachometer"></span>{{ car.kilometers|number_format() }} {% if car.odometro == 0 %}KM{% else %}MI{% endif %}</div>
             					<div class="b-featured__item-links">
             						<a href="javascript:;">{{car.status}}</a>
             						<a href="javascript:;">{{car.year}}</a>
@@ -269,6 +282,7 @@ function onGetModels()
             						<a href="javascript:;">{{car.gas}}</a>
             					</div>
             				</div>
+            				 <div class="clearfix"></div>
                         </div>
                     {% endfor %}
                     {% if cars|length < 1 %}
@@ -278,7 +292,7 @@ function onGetModels()
 		    </div>
 
 			<div class="b-items__pagination">
-			    <div class="b-items__pagination-main">
+			    <div class="">
 <!-- <a data-toggle="modal" data-target="#myModal" href="#" class="m-left"><span class="fa fa-angle-left"></span></a>
 <span class="m-active"><a href="#">1</a></span>
 <span><a href="#">2</a></span>

@@ -26,3 +26,11 @@ navigation:
                 label: Dealers
                 url: andresalice/sierra/dealer
                 icon: icon-flag
+            maker:
+                label: Marcas
+                url: andresalice/sierra/make
+                icon: icon-car
+            models:
+                label: Modelos
+                url: andresalice/sierra/modelc
+                icon: icon-car

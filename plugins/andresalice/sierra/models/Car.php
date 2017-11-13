@@ -3,7 +3,7 @@
 use Model;
 use Andresalice\Sierra\Models\Modelc;
 use Andresalice\Sierra\Models\Make;
-
+use Currency;
 /**
  * Model
  */
@@ -36,27 +36,37 @@ class Car extends Model
 
     public function beforeSave()
     {
-    	$model = Modelc::find($this->model_id);
-    	$make = Make::find($model->make_id); 
+        $model = Modelc::find($this->model_id);
+        $make = Make::find($model->make_id); 
 
-        $this->title = $make->name . " " . $model->name . " " . $this->submodel . " " . $this->year . " " . $this->type . " " . $this->gas . " " . $this->transmision . " " . $this->color . " " . $this->status;
+        $this->title = $make->name . " " . $model->name . " " . $this->year . " " . $this->type . " " . $this->gas . " " . $this->transmision . " " . $this->color . " " . $this->status;
+
+        if($this->currency == 1)
+        { 
+            $this->price_us = $this->price;
+            $this->price = Currency::format($this->price, ['from' => 'USD', 'to' => 'DOP']);
+        }
+        else
+        {
+            //$this->price_us = Currency::format($this->price, ['from' => 'DOP', 'to' => 'USD']);
+            $this->price = $this->price;
+            $this->price_us = $this->price / 47;
+        }
     }
 
     public function scopeWithMakeName ($query) {
         $car = 'andresalice_sierra_cars';
         $model = 'andresalice_sierra_carmodels';
         $make = 'andresalice_sierra_carmakes';
-        $dealer = 'andresalice_sierra_dealers';
-        return $query->select($this->getTable() . '.*', $make . '.name as make_name', $model . '.name as model_name', $dealer . '.name as dealer_name')
+        return $query->select($this->getTable() . '.*', $make . '.name as make_name', $model . '.name as model_name')
                      ->join($model, $car . '.model_id', '=', $model . '.id')
                      ->join($make, $model . '.make_id', '=', $make . '.id')
-                     ->join($dealer, $car . '.dealer_id', '=', $dealer . '.id')
                      ->get();
     }
 
     public function listType ($keyValue=null, $fieldName=null) 
     {
-        return ['Camioneta' => 'Camioneta', 'Jeepeta' => 'Jeepeta', 'Coupé/Sport' => 'Coupé/Sport', 'Sedán' => 'Sedán', 'Compacto' => 'Compacto', 'Camiones' => 'Camiones', 'Motores' => 'Motores'];
+        return ['Camioneta' => 'Camioneta', 'Jeepeta' => 'Jeepeta', 'Coupé/Sport' => 'Coupé/Sport', 'Sedán' => 'Sedán', 'Compacto' => 'Compacto'];
     }
 
     public function listUse ($keyValue=null, $fieldName=null) 
@@ -71,12 +81,12 @@ class Car extends Model
 
     public function listTransmisions ($keyValue=null, $fieldName=null) 
     {
-        return ['Automática' => 'Automática', 'Mecánica' => 'Mecánica', 'Sincronizada' => 'Sincronizada', 'Semiautomática' => 'Semiautomática','Mecánica o Automática' => 'Mecánica o Automática', 'Tiptronic' => 'Tiptronic'];
+        return ['Automática' => 'Automática', 'Mecánica' => 'Mecánica', 'Tritónica' => 'Tritónica'];
     }
 
     public function listTractions ($keyValue=null, $fieldName=null) 
     {
-        return ['Delantera' => 'Delantera', 'Trasera' => 'Trasera', '2WD' => '2WD', '4WD' => '4WD', '4WD Full Time' => '4WD Full Time',];
+        return ['2WD' => '2WD','4x4' => '4x4', 'AWD' => 'AWD', '4WD' => '4WD', 'FWD' => 'FWD', 'RWD' => 'RWD'];
     }
 
 }

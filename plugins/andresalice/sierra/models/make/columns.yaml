@@ -1,9 +1,4 @@
 columns:
-    id:
-        label: ID
-        type: number
-        searchable: true
-        sortable: true
     name:
         label: NOMBRE
         type: text

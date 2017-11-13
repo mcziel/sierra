@@ -1,11 +1,13 @@
 columns:
     name:
-        label: name
+        label: MODELO
         type: text
         searchable: true
         sortable: true
     make_id:
-        label: make_id
+        label: MARCA
         type: number
         searchable: true
         sortable: true
+        select: name
+        relation: maker

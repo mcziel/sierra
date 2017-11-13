@@ -440,6 +440,10 @@
 
 /*600-767*/
 @media screen and (max-width:767px){
+    
+     .b-topBar {
+    display: none;
+     }
     .b-nav__list{
         float:none;
     }

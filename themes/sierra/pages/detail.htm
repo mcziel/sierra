@@ -8,8 +8,8 @@ use Andresalice\Sierra\Models\Car;
 
 function onStart()
 {
-    $this['cars'] = Car::where("id","!=",$this->param("id"))->take(4)->get();
     $this['car'] = Car::find($this->param("id"));
+    $this['cars'] = Car::where("model_id",$this['car']->model_id)->where("id","!=",$this->param("id"))->take(4)->get();
     $porcentajes = array(10,20,30,40,50,60,70,80,90);
 	$p = array();
 	foreach($porcentajes as $pe)
@@ -44,7 +44,7 @@ function onStart()
 				</div>
 				<div class="col-sm-4 col-xs-12">
 					<div class="b-detail__head-price" style:"text-align:center;">
-						<div class="b-detail__head-price-num" style:"display: inline-block;">{% if car.currency == 0 %}RD${% else %}US${% endif %}{{ car.price|number_format() }}</div>
+						<div class="b-detail__head-price-num" style:"display: inline-block;">{% if car.currency == 0 %}RD${{ car.price|number_format() }}{% else %}US${{ car.price_us|number_format() }}{% endif %}</div>
 					</div>
 				</div>
 			</div>
@@ -259,7 +259,7 @@ function onStart()
             			<img  class="miniatura" src="{{c.featured_image.thumb(400,400)}}" alt="{{c.model.name}}" />
             		</a>
             		<div class="b-featured__item-price">
-            			{% if car.currency == 0 %}RD${% else %}US${% endif %}{{ car.price|number_format() }}
+            			{% if car.currency == 0 %}RD${{ car.price|number_format() }}{% else %}US${{ car.price_us|number_format() }}{% endif %}
             		</div>
             		<div class="clearfix"></div>
             		<h5><a href="{{"detail"|page}}">{{car.model.maker.name}} {{car.model.name}} {{car.submodel}} {{car.year}}</a></h5>

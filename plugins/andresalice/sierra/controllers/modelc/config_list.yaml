@@ -1,11 +1,12 @@
-list: $/andresalice/sierra/models/modelc/columns.yaml
-modelClass: Andresalice\Sierra\Models\Modelc
 title: Modelc
+modelClass: Andresalice\Sierra\Models\Modelc
+list: $/andresalice/sierra/models/modelc/columns.yaml
+recordUrl: 'andresalice/sierra/modelc/update/:id'
 noRecordsMessage: 'backend::lang.list.no_records'
+recordsPerPage: '40'
 showSetup: true
 showCheckboxes: true
 toolbar:
     buttons: list_toolbar
     search:
         prompt: 'backend::lang.list.search_prompt'
-recordUrl: 'andresalice/sierra/modelc/update/:id'
